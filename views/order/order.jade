@@ -1,0 +1,268 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/coupons.css")
+    link(rel="stylesheet", href="/stylesheets/order.css")
+    link(rel="stylesheet", href="/stylesheets/calendar.css")
+block javascripts
+    script.
+        var minNum = '#{data.length > 2 ? (data[2].data.minOrder < 1 ? 1 : data[2].data.minOrder) : 1}'
+            , maxNum = '#{data.length > 2 ? data[2].data.maxOrder : null}'
+            , activity = '#{reObj.activity}'
+            , module = '#{reObj.module}'
+            , beginDate = '#{reObj.beginDate}'
+            , endDate = '#{reObj.endDate}'
+            , isRealName = '#{data.length > 2 ? (data[0].data.isRealName ? data[0].data.isRealName : "F") : "F"}'
+            , isNeedIdcard = '#{data.length > 2 ? data[2].data.isNeedIdcard : "F"}'
+            , isNeedMobile = '#{data.length > 2 ? data[2].data.isNeedMobile : "F"}'
+            , maxAge = '#{ data.length > 2 ? (data[2].data.maxAge ? data[2].data.maxAge : 200) : 200}'
+            , minAge = '#{ data.length > 2 ? (data[2].data.minAge ? data[2].data.minAge : 0) : 0}'
+            , sex = '#{ data.length > 2 ? (data[2].data.sex ? data[2].data.sex : "X") : "X"}'
+            , stock = !{JSON.stringify(data[1].data)}
+            , modelCode = '#{data[0].data.modelCode}',
+            hasLogin = '#{userInfo && userInfo.id}';
+
+    script(type='text/javascript', src='/javascripts/jquery.calendar.js')
+    script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+    script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+    script(type='text/javascript', src='/lib/validate/additional-methods.js')
+    script(type='text/javascript', src='/javascripts/pageItem.js')
+    script(type='text/javascript', src='/javascripts/getCoupon.js')
+    script(type='text/javascript', src='/javascripts/order.js')
+block content
+    include orderBtn
+    if reObj.module === 'traffic'
+        .traffic-detail
+            .detail-start #{begin} 日 #{data[0].datas[0].time}发车
+            .detail-address
+                span=data[0].datas[0].startPlace
+                img(src="/images/list/traffic-dire.png", alt="")
+                span=data[0].datas[0].endPlace
+    else
+        header.myorder-header.pro-header
+            if reObj.activity === 'sencondsKill'
+                h3.myorder-title=data[0].data.activityName
+            else if reObj.activity === 'groupBuy'
+                h3.myorder-title=data[0].data.goodName
+            else
+                h3.myorder-title=data[0].data.aliasName
+            p.myorder-explian
+                if reObj.module === "repast"
+                    a.c-base(href='/orderDetail/content') 预订须知>
+                else if reObj.module != "ticket"
+                    a.c-base(href='/orderDetail/orderNotice') 预订须知>
+    .page-line
+    form(action="")#form
+        if reObj.module === 'traffic'
+            input(type="hidden", name='id', value=data[0].datas[0].frequencyId)
+            input(type="hidden", name='begin', value=begin)
+        else if reObj.activity === 'sencondsKill'
+            input(type="hidden", name='rateCode', value=data[0].data.activityCode)
+            //input(type="hidden", name='activityId', value=data[0].data.id)
+            input(type="hidden", name='busiType', value=data[0].data.businessType)
+            input(type="hidden", name='activityType', value="secondKill")
+        else if reObj.activity === 'groupBuy'
+            input(type="hidden", name='rateCode', value=data[0].data.goodNo)
+            input(type="hidden", name='busiType', value=data[0].data.businessType)
+            input(type="hidden", name='activityType', value="groupBuy")
+            input(type="hidden", name='activityId', value=data[0].data.id)
+            input(type="hidden", name='groupFlag', value=reObj.groupFlag)
+            input(type="hidden", name='groupedId', value=reObj.groupedId)
+        else
+            input(type="hidden", name='rateCode', value=data[0].data.rateCode)
+        if reObj.module === 'hotel'
+            input(type="hidden", name='beginDate', value=reObj.beginDate)
+            input(type="hidden", name='endDate', value=reObj.endDate)
+        else if  reObj.module === 'ticket' || reObj.module === 'skiPark' ||  reObj.module === 'route' || reObj.module === 'car' || reObj.module === 'guide' || reObj.module === 'combo' || reObj.module === 'repast' || reObj.module === 'qr' || reObj.module === 'sencondsKill'|| reObj.module === 'groupBuy'
+            input(type="hidden", name='beginDate')
+            input(type="hidden", name='endDate')
+        if reObj.module === 'ticket' || reObj.module === 'skiPark' || reObj.module === 'route' || reObj.module === 'combo'
+            if reObj.parkId
+                input(type="hidden", name='parkId', value=reObj.parkId)
+        input(type="hidden", name='couponCode', value='')
+        input(type="hidden", name='couponCheckCode', value='')
+        ul.order-list.myorder-list
+            if reObj.module === 'hotel'
+                li
+                    label.lab-title(for='') 入住日期
+                    .order-item
+                        a.c-base#calendarTogg
+                            | #{reObj.beginDate} 至 #{reObj.endDate} #{reObj.numDays}晚
+            else if reObj.module === 'ticket' || reObj.module === 'skiPark' || reObj.module === 'route' || reObj.module === 'combo' || reObj.module === 'qr' || reObj.module === 'repast' || reObj.module === 'car'
+                li#calendarTogg
+                    label.lab-title(for='') 使用日期
+                    .order-item
+                        a(href='javascript:;')
+                            span.order-time
+                    i.font-icon.icon-iconfont-jiantou
+            else if reObj.module === 'guide'
+                li#calendarTogg
+                    label.lab-title(for='') 出行日期
+                    .order-item
+                        a(href='javascript:;')
+                            span.order-time  &nbsp;&nbsp;
+                    i.font-icon.icon-iconfont-jiantou
+            else if reObj.module === 'traffic'
+                li
+                    label.lab-title 车票
+                    .order-item
+                        select(name='ppcId').traffic-select
+                            each item in data[0].datas
+                                option(value=item.ppcId data-stock=item)=item.ticketType
+            li
+                label.lab-title 购买份数
+                if reObj.activity === 'groupBuy'
+                    span(style="display:none")#collagePrice=data[0].data.collagePrice
+                    //span(style="display:none")#everyoneLimitBuy=data[0].data.everyoneLimitBuy
+                if reObj.module === 'hotel'
+                    .order-item
+                        span
+                            span(style="display:none")#price.order-time=data[1].data.list
+                            span.fr#numbernum
+                else if reObj.module === 'repast' || reObj.module === 'shop' || reObj.module === 'amusement' || reObj.module === 'traffic' || reObj.module === 'combo'
+                    .order-item.flexEnd
+                        span.price
+                            em ￥
+                            if(module === 'traffic')
+                                strong#price
+                            else
+                                strong#price=data[0].data.currentPrice
+                        span.fr
+                            span.fr#numbernum
+                else
+                    .order-item.flexEnd
+                        span.order-time ￥
+                        span#price.order-time
+                        span.fr#numbernum
+            if reObj.module === 'shop'
+                li
+                    label.lab-title(for='') 配送方式
+                    .order-item
+                        select#get_type(name='')
+                            option(data-index=0, value='0' selected="selected") 快递
+                            //if data[data.length-1].status === 200
+                            if data[data.length-1].status === 200
+                                option(data-index=1, value='1') 自提
+                        em.express-price#express_price
+        .page-line
+        ul.order-list.myorder-list
+            if reObj.module === 'shop'
+                li.get_express
+                    label.lab-title(for='') 收货地址
+                    .order-item.info-address#infoAddress
+                        select(name='address1')
+                        select(name='address2')
+                        select(name='address3')
+                    .address-error 地址填写不完整
+                li.get_express#get_express
+                    label.lab-title(for='') 详细地址
+                    .order-item
+                        input.order-text(type='text', name='street', value='', placeholder='请填写街道地址')
+                    i.font-icon.fr.icon-iconfont-xie
+                li#get_self(style='display:none')
+                    label.lab-title(for='') 自提点
+                    #get_self_place.order-item
+                        .order-place-text 请选择自提点
+                        i.font-icon.fr.icon-iconfont-jiantou
+                        input.order-text( name='address', type="hidden",value='' )
+            li
+                - var _linkName = reObj.module === 'ticket' ||  reObj.module === 'skiPark' ? '游客1':'联系人';
+                label.lab-title(for='')= _linkName
+                .order-item
+                    input.order-text(type='text', name='linkMans', value=userInfo ? userInfo.realName : '', placeholder='请填写姓名')
+                i.font-icon.fr.icon-iconfont-xie
+            li
+                label.lab-title(for='') 手机号
+                .order-item
+                    input.order-text(type='tel', name='teles',value=userInfo ? userInfo.mobile : '', placeholder='请填写手机号')
+                i.font-icon.fr.icon-iconfont-xie
+            if reObj.module !== 'shop' && reObj.module !== 'repast'
+                li
+                    label.lab-title(for='') 身份证
+                    .order-item
+                        input.order-text.card_box(type='text', name='idNos', value=userInfo ? userInfo.idcard : '', placeholder='请填写身份证')
+                    i.font-icon.fr.icon-iconfont-xie
+        .page-line
+        #userAuth
+        //if reObj.module !== 'car' & reObj.module !== 'guide'
+        if reObj.activity !== 'groupBuy' && reObj.module !== 'guide' && reObj.activity !== 'sencondsKill'
+            ul.order-list.myorder-list
+                li
+                    label.lab-title(for='') 优惠券
+                    .order-item
+                        a(href='javascript:;', data-code=(data[0].data.rateCode || '')).c-666#choiceCoupons
+                            span 优惠劵选择
+                    i.font-icon.fr.icon-iconfont-jiantou
+                li
+                    label.lab-title(for='') 优惠活动
+                    .order-item
+                        a(href='javascript:;').c-666
+                            span#couponInfo 优惠活动信息
+        +orderBtn(data[0].datas,reObj.module)
+    .mask#mask
+    form(action="")#cartForm
+        input(type="text", name="totalPrice", value="").totalprice
+        input(type="text", name='bnsType', value=reObj.module)
+        input(type="text", name='name', value=data[0].data.rateName || data[0].data.ticketType)
+    .tips
+        p
+        a(href="javascript:;").queding 确定
+    if reObj.module === 'hotel'
+        #cost-dialog.cost-dialog.dialog
+            h3.cost-dialog-title 费用明细
+            ul.cost-dialog-list#costList
+            p.cost-dialog-explian
+                | 订单总额：
+                span.price
+                    em ￥
+                    strong
+                    em.c-999.couponHandlePrice
+                    em.c-price.payPrice
+    if reObj.module === 'shop' && data[data.length-1].status === 200
+        #take_layer.take-layer
+            a.close-take(href='javascript:;') X
+            h3.notice-tit 自提地点
+            ul
+                each address in data[data.length-1].data
+                    li
+                        .take-tit
+                            a.fr.btn(href='javascript:;') 选择
+                            h3=address.name
+                        .take-add
+                            p= address.areaAddr + '-' + address.addr
+    #calendar(data-dates=data[1].data.list)
+    //    黄山专用
+    //-if data[0].data.bookRemind
+        .mask-ticket#mask-ticket(style="display:block")
+        .ticket-layer(style="display:block")
+            h3.notice-tit
+                | 购票提醒
+            .article-info.bgf
+                .article-main!=data[0].data.bookRemind
+            .input-box.clearfix
+                span#checkedBtn.check-btn
+                    input#check(type='checkbox', hidden='')
+                    i
+                    em 我已了解
+            .room-handle.clearfix
+                a.fr.gray_btn(href="javascript:;") 下一步
+                a.fl(href=reObj.det_url) 返回
+    //优惠券弹框
+    .couponListLayer#couponListLayer
+        .couponTit 使用优惠券
+        i.font-icon.icon-iconfont-32pxchaxian.layer-close#layer_close
+        .couponBody
+            .couponBodyTab(style="display:block")
+                .couponList.inner.coupons_list
+                    ul.page-list#couponList
+
+    //使用优惠券提醒登录
+    .ticket-layer#goLogin(style="display:none")
+        h3.notice-tit
+            | 优惠券使用提醒
+        .article-info.bgf
+            .article-main
+                | 登录后才可使用优惠券
+        .room-handle.clearfix
+            a.fr(href="/login?redir=" + reObj.cbUrl) 去登录
+            a.fl#cancleLayer(href="javascript:;") 不使用

@@ -1,0 +1,24 @@
+extends layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/login.css")
+block javascripts
+    script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+    script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+    script(type='text/javascript', src='/lib/validate/additional-methods.js')
+    script(type='text/javascript', src='/javascripts/login.js')
+block content
+    .login-main.register-main
+        form#submitForm
+          .login-list
+            .input-box.text
+                input(type='tel',name='loginName' placeholder='请输入手机号码')
+            .quick-login
+              .input-box.code.clearfix
+                input.fr#getCodeBtn(type='button', value='获取验证码',data-type='pwd')
+                input.input-code(type='tel', name='checkCode', placeholder='请输入验证码',value=checkCode)
+            .input-box.input-button
+              input#checkCode(type='button', value='提交')
+    .mask#mask
+        .tips
+            p
+            a(href="javascript:;").queding 确定

@@ -1,0 +1,84 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/order.css")
+  style.
+    .order-item {font-size: 0.55rem;border-bottom: 1px solid #eaeaea;}
+    .order-item:last-child {border-bottom: none}
+block javascripts
+  script(type='text/javascript', src='/javascripts/pay.js')
+block content
+  -var item = data[0].data;
+    header.myorder-header.pro-header
+      h3.myorder-title=item.orderInfo
+      p.myorder-explian
+        span
+          | 请在
+          em.c-base
+          | 30分钟内支付订单，否则订单将被取消
+    .orderDetails.order-details
+      ul
+        li
+          label.lab-title(for='') 费用明细
+          .order-item
+            span.price
+              em ￥
+              strong=item.price
+            | *&ensp;#{item.amount}
+        if item.couponSum
+          li
+            label.lab-title(for='') 优惠金额
+            .order-item
+              span.price
+                em ￥
+                strong=item.couponSum 
+        if item.linkAddress
+          li
+            label.lab-title(for='') 收货地址
+            .order-item
+              span.price
+                strong=item.linkAddress
+        li
+          label.lab-title(for='') 游客信息
+          if module === 'ticket' && item.linkManDTOList
+            each _item in item.linkManDTOList
+              .order-item
+                if _item.telephone
+                  p 联&ensp;系&ensp;人：  #{_item.linkMan}
+                  p 手&ensp;机&ensp;号：  #{_item.telephone}
+                else
+                  p 姓&ensp;&ensp;&ensp;&ensp;名：  #{_item.linkMan}
+                p 身份证号： #{_item.idNo}
+          else
+            .order-item
+              p 联 系 人：  #{item.linkName}
+              p 手 机 号：  #{item.linkMobile}
+              if module !== 'shop' && module !== 'repast'
+                p 身份证号：#{item.linkIdcard}
+    ul.order-list.account-list.bt
+      li.toogleli
+        label.lab-title(for='')=_b?'小计':'订单总额'
+        .order-item
+          span.price
+            em ￥
+            strong=(item.paySum).toFixed(2)
+          a.arrow(href='javascript:;')
+            i.font-icon.icon-iconfont-jiantou
+  .page-line
+  ul#pay-mold.order-list.pay-list
+    if is_weixn
+      li.wenxin
+        a(href='javascript:;')
+          label.lab-title(for='')
+            i.font-icon.icon-iconfont-weixin
+            | 微信支付
+          i.font-icon.fr.icon-iconfont-gougou
+    else
+      li.zhifubao
+        a(href='javascript:;')
+          label.lab-title(for='')
+            i.font-icon.icon-iconfont-zhifubao
+            | 支付宝
+          i.font-icon.fr.icon-iconfont-gougou
+  .btn-handle
+    a.btn#toPayBtn( href='/pay/'+item.orderType+'?payOrderNo='+ item.payOrderNo +'&orderNo='+orderNo+'&paySum='+item.paySum+'&orderInfo='+ item.orderInfo ) 去支付

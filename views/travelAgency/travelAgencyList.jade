@@ -1,0 +1,21 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/travelAgency/travelAgencyList.css")
+block javascripts
+block content
+    include ./mixin/list
+    .search1#searchBar
+        input.search1-input(type = 'text',placeholder="搜索旅行社",value=name)
+        button.search-btn
+            i.icon.iconfont.icon-sousuo2
+    //-过滤
+    .filter
+        ul.filter-list
+            li.filter-item.active
+                span.filter-item-text 区域
+            li.filter-item
+                span 筛选
+    //-过滤面板
+    ul.agency-list
+        +list("data[0].data","travelAgency")
+

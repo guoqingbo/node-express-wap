@@ -1,0 +1,8 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/detail.css")
+block javascripts
+block content
+    a.back-bar(href='javascript:window.history.back(-1);')
+    .article-info!=data?data:"暂无数据"

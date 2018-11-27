@@ -1,0 +1,92 @@
+mixin formatDate(date)
+    -var year=date.getFullYear()
+    -var month=date.getMonth()+1
+    -var day=date.getDate()
+    =year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
+
+mixin getModule(m)
+    -var _m='景区'
+    -var _c='icon-iconfont-menpiao'
+    case m
+        when 'hotel'
+            -_m='酒店'
+            -_c='icon-iconfont-jiudian'
+        when 'amuse'
+            -_m='娱乐'
+            -_c='icon-iconfont-amuse'
+        when 'combo'
+            -_m='自由行'
+            -_c='icon-iconfont-ziyouxing'
+        when 'goods'
+            -_m='商品'
+            -_c='icon-iconfont-shouji3'
+        when 'repast'
+            -_m='餐饮'
+            -_c='icon-iconfont-canting'
+        when 'traffic'
+            -_m='交通'
+            -_c='icon-iconfont-gongjiao'
+    i(class='font-icon mold-type ' + _c)
+    =_m
+
+mixin payStatus(m,type,groupedStatus)
+    -var _m='其他',s = typeof m === 'string' ? parseInt(m) : s
+    case s
+        when 0
+            -_m='待支付'
+        when 1
+            if groupedStatus>=0
+                -var groupStatusObj = {0:"拼团中",1:"拼团成功",2:"拼团失败"}
+                -_m = groupStatusObj[groupedStatus]
+            else
+                -_m=type=='shop'?'已发货':'待消费'
+        when 2
+            -_m='交易成功'
+        when 3
+            -_m='已退款'
+        when 4
+            -_m='交易取消'
+        when 5
+            -_m='待确认'
+    =_m
+mixin refundStatus(m)
+    -var _m='其他',s = typeof m === 'string' ? parseInt(m) : s
+    case s
+        when 0
+            -_m='待审核'
+        when 1
+            -_m='等待审核'
+        when 2
+            -_m='退款中'
+        when 3
+            -_m='退款失败'
+        when 4
+            -_m='退票中'
+        when 5
+            -_m='退票失败'
+        when 6
+            -_m='退单成功'
+        when 7
+            -_m='退款成功'
+        when 8
+            -_m='第三方退单失败'
+        when 9
+            -_m='退单失败'
+        when 10
+            -_m='退单申请成功,等待平台返回'
+    =_m
+
+mixin sendStatus(statusCode)
+    - var sendName = ''
+    case statusCode
+        when '0'
+            - sendName = '未发货'
+        when '1'
+            - sendName = '已发货'
+        when '2'
+            - sendName = '已收货'
+        when '3'
+            - sendName = '自提'
+        default
+            - sendName = statusCode
+    = sendName

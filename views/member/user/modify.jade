@@ -1,0 +1,24 @@
+extends ../../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+  script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+  script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+  script(type='text/javascript', src='/lib/validate/additional-methods.js')
+  script(type='text/javascript', src='/javascripts/member/modify.js')
+block content
+  include ../../common/footer/footer
+  .page-line
+  form#form
+    ul.order-list-big.order-list.form-list
+      li
+        input.w100(type='text', name=modify , placeholder=data[modify], value= data[modify] ? data[modify]:'')
+    .member-handle.btn-handle
+      a.btn(href='javascript:;') 确认修改
+  .mask#mask
+  .tips
+    p
+    a(href="javascript:;").queding 确定
+
+  +footer

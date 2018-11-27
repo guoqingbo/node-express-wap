@@ -1,0 +1,46 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/coupons.css")
+    style.
+        body {background-color: #b12725}
+block javascripts
+    script(type='text/javascript', src='/javascripts/getCoupon.js')
+block content
+    - const info = data[0].data;
+    .coupons_bg
+        .coupons-details
+            .coupons_ticket
+                .coupons_ticket_box
+                    span.ctbg.coupons_ticket_l
+                        img(src='/images/coupons/bg_hongbao_nums_l.png')
+                    span.ctbg.coupons_ticket_c
+                        case info.couponType
+                            when '0'
+                                h5 ￥#{info.couponValue}
+                            when '1'
+                                h5 #{(parseInt(info.couponValue) / 10)}折
+                        i.poupons_ticket_bgc
+                            img(src='/images/coupons/bg_hongbao_nums_c.png')
+                    span.ctbg.coupons_ticket_r
+                        img(src='/images/coupons/bg_hongbao_nums_r.png')
+                i.coupons_bg
+                    img(src='/images/coupons/bg_hongbao.png')
+            h3.coupons_tit
+                i.success
+                    img(src='/images/coupons/get_hb.png')   
+            p.coupons_get_info 
+                //case info.productFlag
+                    when '0'
+                        | 通用，
+                    when '1'
+                        | 指定产品类别，
+                    when '2'
+                        | 指定产品，
+                | 已成功领取#{info.couponName}优惠券
+            //p.coupons_get_info     
+                | 有效期：#{info.startTime.substring(0,10)}~#{info.endTime.substring(0,10)}
+            a.view_btn(href='/coupons/member') 查看
+            //.coupons_tips!=info.content
+
+

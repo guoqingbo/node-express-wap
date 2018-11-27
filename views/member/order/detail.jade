@@ -1,0 +1,200 @@
+extends ../../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/order.css")
+block content
+    -var datas=data[0].data
+    include ../../common/index
+    include ../../common/footer/footer
+    a.back-bar(href='javascript:window.history.back(-1);')
+    header.myorder-header
+        p.myorder-explian
+            span 订单号：#{datas.orderNo}
+            span 下单日期：#{datas.createTime}
+        h3.myorder-title.orient3=datas.orderInfo
+        p.myorder-pay
+            | 订单总金额：
+            span.price
+                em ￥
+                    | #{datas.paySum}
+            if datas.orderType !== 'shop'
+                em.pay-mold.payed.fr
+                    +payStatus(datas.orderStatus,datas.orderType,datas.groupedStatus)
+            else
+                em.pay-mold.payed.fr
+                    +sendStatus(datas.sendStatus)
+    .page-line
+    ul.order-list.myorder-list
+        if datas.orderDetails && datas.orderDetails.length > 0
+            each item in datas.orderDetails
+                if datas.orderDetails.length > 1
+                    li
+                        label.lab-title(for='') 商品名称
+                        .order-item
+                            span= item.orderInfo
+                li
+                    label.lab-title(for='') 使用日期
+                    .order-item
+                        span= item.startDate.substring(0,10)
+                li
+                    label.lab-title 购买份数
+                    .order-item
+                        span= item.amount + '份'
+                if datas.orderType === 'shop'
+                    li.page-line(style="padding:.25rem .75rem;")
+
+        if datas.orderType !== 'shop' && datas.orderDetails && datas.orderDetails.length === 0
+            li
+                - var _startTime = datas.startTime ? datas.startTime.substring(0,10) : '',_endTime = datas.endTime ? datas.endTime.substring(0,10) : ''
+                if datas.orderType === 'hotel'
+                    label.lab-title(for='') 入住日期
+                    .order-item
+                        span=_startTime + "至" + _endTime
+                else
+                    label.lab-title(for='') 使用日期
+                    .order-item
+                        span=_startTime
+        //-li
+            label.lab-title(for='') 下单日期
+            .order-item
+                span=datas.createTime
+        //-li
+            label.lab-title(for='') 购买份数
+            .order-item
+                span #{datas.amount}份
+        if datas.orderType === "shop"
+            if datas.sendType === '0'
+                li
+                    label.lab-title(for='') 配送方式
+                    .order-item
+                        span 快递
+                li
+                    label.lab-title(for='') 地址
+                    .order-item
+                        span=datas.linkAddr
+                if datas.sendStatus=== '1'
+                    li
+                        label.lab-title(for='') 快递单号
+                        .order-item
+                            span=datas.expressNo
+                    li
+                        label.lab-title(for='') 快递公司
+                        .order-item
+                            span=datas.expressType
+                //li
+                //    label.lab-title(for='') 发货状态
+                //    .order-item
+                //        span=datas.sendStatus
+            else
+                li
+                    label.lab-title(for='') 配送方式
+                    .order-item
+                        span 自提
+                li
+                    label.lab-title(for='') 自提地址
+                    .order-item
+                        span=datas.linkAddr&&datas.linkAddr!=='undefined'?datas.linkAddr:''
+
+    if datas.orderType === 'ticket'&& datas.linkManDTOList
+        each item in datas.linkManDTOList
+            .page-line
+            ul.order-list.myorder-list
+                if item.telephone
+                    li
+                        label.lab-title(for='') 联系人
+                        .order-item=item.linkMan
+                    li
+                        label.lab-title(for='') 手机号
+                        .order-item=item.telephone
+                else
+                    li
+                        label.lab-title(for='') 姓&ensp;&ensp;名
+                        .order-item=item.linkMan
+                li
+                    label.lab-title(for='') 身份证
+                    .order-item=item.idNo
+
+    else
+        .page-line
+        ul.order-list.myorder-list
+            li
+                label.lab-title(for='') 联系人
+                .order-item=datas.linkName
+            li
+                label.lab-title(for='') 手机号
+                .order-item=datas.linkMobile
+            if datas.linkIdcard
+                li
+                    label.lab-title(for='') 身份证
+                    .order-item=datas.linkIdcard
+    .btn-handle
+        if datas.orderStatus === "1" && datas.canRefund
+            a.btn-RP(href='/member/refund/' + datas.orderType + '?orderNo=' + datas.orderNo) 申请退款
+        if datas.orderStatus === "2" && datas.comment === false
+            a.btn(href='/member/comment/'+ datas.orderType + '?orderNo=' + datas.orderNo+'&modelCode='+datas.modelCode) 发表评价
+        if datas.orderStatus === "0"
+            - var _t=datas.orderType
+            a.btn(href='/pay/' + _t + '/' + datas.orderNo) 去支付
+            a.btn#cancel(href='javascript:;', data-id=datas.orderNo) 取消订单
+        if datas.sendStatus === '1'
+            a.btn#receivedGoodsBtn(data-orderNo=datas.orderNo) 确认收货
+    .mask#mask
+        .tips
+            p
+            a(href="javascript:;").queding 确定
+
+    +footer
+
+    script.
+        $(function () {
+            // 确认收货
+            $('#receivedGoodsBtn').click(function () {
+                var confirmReceive = confirm('请确认收货？');
+                if(!btnFlag || !confirmReceive) return false;
+                btnFlag = false;
+                var orderNo = $(this).data('orderno');
+                $.post('/receivedGoods/' + orderNo).success(function(res){
+                    if(res[0].status !== 200){
+                        new ErrLayer({
+                            message: res[0].message
+                        })
+                    }else{
+                        new TipLayer({
+                            message: '确认收货成功',
+                            confirmCallBack: function(){
+                                location.reload();
+                            }
+                        })
+                    }
+                    btnFlag = true;
+                })
+            });
+
+            // 取消订单
+            $("#cancel").click(function (e) {
+                e.preventDefault();
+                var that = $(this);
+                var orderNo = $(this).data('id');
+                var confirmDel = confirm('确认要取消订单吗');
+                if (confirmDel) {
+                    $.post('/member/cancle/' + orderNo)
+                        .success(function (data) {
+                            console.log(data);
+                            $('.mask,.tips').show();
+                            $('.tips p').text(data[0].message);
+
+                            //that.text('删除订单');
+                            //$('.pay-mold').text('已取消')
+
+                            $('.tips a').on('click', function () {
+                                $('.mask,.tips').hide();
+                                window.location.reload();
+                            });
+
+                        })
+                        .error(function (err) {
+                            window.location.href = '/error';
+                        });
+                }
+
+            })
+        });

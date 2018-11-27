@@ -1,0 +1,125 @@
+//- 关键字搜索
+mixin search(module,name)
+    //-搜索
+    if module === 'travelAgency'
+        .search1#searchBar
+            input.search1-input(type = 'text',placeholder="搜索旅行社",value=name)
+            button.search-btn
+                i.icon.iconfont.icon-sousuo2
+    else
+        .search-bar#searchBar
+            input.list-search-input(type='text', placeholder='搜索关键字',value=name)
+            button.search-btn.font-icon.icon-search
+
+//- 条件筛选
+mixin filter(module,orderStatus)
+    if module === 'order' || module === 'refund'
+        section(class='header-tab has-search member-search',data='#{orderStatus}')
+            ul#myOrderTab.tab.clearfix.myorder-tab
+                li
+                    if orderStatus == ""
+                        a(href="/list/order").c-base 全部订单
+                    else
+                        a(href="/list/order") 全部订单
+                li
+                    if orderStatus == "0"
+                        a(href="/list/order?orderStatus=0").c-base 待支付
+                    else
+                        a(href="/list/order?orderStatus=0") 待支付
+                li
+                    if orderStatus == "1"
+                        a(href="/list/order?orderStatus=1").c-base 已出票
+                    else
+                        a(href="/list/order?orderStatus=1") 已出票
+                li
+                    if orderStatus == "2"
+                        a(href="/list/order?orderStatus=2").c-base 已完成
+                    else
+                        a(href="/list/order?orderStatus=2") 已完成
+                //li
+                //    if orderStatus == "3"
+                //        a(href="/list/order?orderStatus=3").c-base 退款
+                //    else
+                //        a(href="/list/order?orderStatus=3") 退款
+                li
+                    if orderStatus == "-1"
+                        a(href="/list/refund?orderStatus=-1").c-base 退单
+                    else
+                        a(href="/list/refund?orderStatus=-1") 退单
+    else if module === 'travelAgency'
+        section(class='header-tab has-search')
+            ul#searchtab.tab.clearfix.ticket-tab
+                li
+                    a(href='javascript:;')='区域'
+                li
+                    a(href='javascript:;')='筛选'
+    else
+        section(class='header-tab has-search')
+            ul#searchtab.tab.clearfix.ticket-tab
+                li
+                    a(href='javascript:;')='全部筛选'
+                li
+                    a(href='javascript:;')='默认排序'
+
+//- 筛选条件
+mixin panel(module,data)
+    if module === 'order'|| module === 'refund'
+        dl.tab-search-panel.filterList
+            dt(data-filter='orderStatus')
+            dd(data-filter='0') 待支付
+            dd(data-filter='1') 已支付
+            dd(data-filter='3') 已过期
+        dl.tab-search-panel.filterList
+            dt(data-filter='orderType')
+            dd(data-filter='ticket') 景区
+            dd(data-filter='hotel') 酒店
+            dd(data-filter='combo') 自由行
+            dd(data-filter='goods') 购物
+            dd(data-filter='repast') 美食
+            dd(data-filter='amuse') 娱乐
+            dd(data-filter='traffic') 交通
+    else if module === 'travelAgency'
+        .tab-search-panel.filterTab
+            if data[0].data.length > 1
+                -var item = data[0].data[1]
+                    dl
+                        dt.c-base(data-filter='labelId')=item.name
+                        dd.c-base(data-filter='')
+                            | 全部
+                        each ite in item.list
+                            dd(data-labelid=ite.id)=ite.name
+                .filter-handle
+                    a(href="javascript:;").c-base 确认
+        .tab-search-panel.filterTab
+            if data[0].data.length > 0
+                -var item = data[0].data[0]
+                dl
+                    dt.c-base(data-filter='labelId')=item.name
+                    dd.c-base(data-filter='')
+                        | 全部
+                    each ite in item.list
+                        dd(data-labelid=ite.id)=ite.name
+                .filter-handle
+                    a(href="javascript:;").c-base 确认
+    else
+        .tab-search-panel.filterTab
+            if data[0].data.length
+                each item in data[0].data
+                    dl
+                        dt.c-base(data-filter='labelId')=item.name
+                        dd.c-base(data-filter='')
+                            | 全部
+                        each ite in item.list
+                            dd(data-labelid=ite.id)=ite.name
+                .filter-handle
+                    a(href="javascript:;").c-base 确认
+        dl.tab-search-panel.filterList
+            dd.c-base 默认排序
+            if data[1].data
+                each item in data[1].data
+                    dd(data-filter=item.key)=item.value
+                        if item.key !== 'customSort'
+                            span.iconArrBox
+                                i.iconfont.icon-up
+                                i.iconfont.icon-down
+    .page-line.page-line2

@@ -1,0 +1,113 @@
+.search1{
+    padding: .2rem 1.7rem;
+    background-color: #f2f3f4;
+}
+.search1-input{
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 0 1.5rem 0 1rem;
+    background-color: #fff;
+    border-radius:2rem;
+    height: 1.9rem;
+    width: 100%;
+}
+.search1 .search-btn{
+    margin-left: -1.6rem;
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
+.search1 .icon-sousuo2{
+    font-size: .7rem;
+    vertical-align: middle;
+}
+/*过滤筛选*/
+.filter{
+    padding:0 .5rem;
+    background-color: #fff;
+}
+.filter-list{
+    display: flex;
+    height: 2.1rem;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+.filter-item{
+    font-size: .65rem;
+    text-align: center;
+    box-sizing: border-box;
+    width: 50%;
+    color: #999;
+}
+.filter-item:first-child{
+    border-right: 1px solid #eee;
+}
+
+.filter-list .active{
+    color: #1ba0ef;
+}
+.filter-list .active .filter-item-text{
+    border-bottom: 1px solid #1ba0ef;
+    padding-bottom: .6rem;
+}
+/*列表*/
+.agency-list{
+    padding: .5rem;
+    background-color: #fff;
+}
+.agency-item{
+    overflow: hidden;
+    height: 4.1rem;
+    border-bottom: 1px solid #eee;
+}
+.agency-img-box{
+    float: left;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-right: .5rem;
+}
+.agency-img{
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: 3.1rem;
+}
+.agency-content{
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;;
+    font-size: .6rem;
+}
+.agency-licence,.agency-addr{
+    font-size: .5rem;
+    color: #999;
+}
+.agency-go{
+    height: 100%;
+    display: flex;
+    float: right;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.go-icon-box{
+    background-color: #f00;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 1.4rem;
+    line-height: 1.4rem;
+    text-align: center;
+}
+.go-icon-box .icon-quzheli{
+    color: #fff;
+    vertical-align: middle;
+    font-size: 0.6rem;
+}
+.go-text {
+    font-size: .4rem;
+    color:#999;
+    padding-top: .2rem;
+}

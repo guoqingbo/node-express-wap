@@ -1,0 +1,46 @@
+.information-list{
+    background-color: #fff;
+    padding:0 .5rem;
+}
+.information-item{
+    box-sizing: border-box;
+    padding: .5rem 0;
+    border-bottom: 1px solid #f4f4f4;
+    height: 5.4rem;
+}
+.information-img-box{
+    float: left;
+}
+.information-img{
+    width:5.5rem ;
+    height: 4.4rem;
+    border-radius: .3rem;
+    margin-right: .5rem;
+}
+.information-content{
+    float: left;
+    position: relative;
+    height: 100%;
+}
+.information-name{
+    font-size: .65rem;
+    padding-bottom: .2rem;
+}
+.information-intro {
+    font-size: .6rem;
+    color: #999;
+}
+.information-time{
+    position: absolute;
+    bottom: 0;
+    font-size: .6rem;
+    color: #999;
+    white-space: nowrap;
+}
+.information-time .icon-time{
+    margin-right: .2rem;
+    vertical-align: middle;
+}
+.information-time .information-time-value{
+    vertical-align: middle;
+}

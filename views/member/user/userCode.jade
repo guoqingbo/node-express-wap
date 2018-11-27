@@ -1,0 +1,53 @@
+extends ../../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/order.css")
+    style.
+        body {
+            padding: .5rem;
+        }
+        h3.title {
+            font-size:.8rem;
+            color:#333;
+            line-height:2;
+            text-indent: 1rem;
+            margin-top: 1rem;
+        }
+        p.userCodeText {
+            font-size:.55rem;
+            text-align: center;
+            margin: .5rem 0;
+        }
+        .userCodeQr {
+            width:100%;
+            box-sizing: border-box;
+        }
+        .userCodeQr table {
+            width: 8rem;
+            height: 8rem;
+            display: block;
+            margin: 2rem auto;
+        }
+block javascripts
+    script(type='text/javascript', src='/javascripts/member/user.js')
+    script(type='text/javascript', src='/lib/jquery/jquery.qrcode.min.js')
+    script.
+        $(function(){
+            $('.userCodeQr').qrcode({
+                render: 'table',
+                width: 200,
+                height: 200,
+                foreground: "#333",
+                background: "#f4f4f4",
+                text: '#{userCode}'
+            })
+        })
+block content
+    include ../../common/footer/footer
+
+    h3.title 会员码
+    p.userCodeText #{userCode}
+    .userCodeQr
+        //img(src="", alt="会员码")
+
+    +footer

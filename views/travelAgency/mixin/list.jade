@@ -1,0 +1,19 @@
+mixin list(data,module)
+    //-旅行社
+    if module === "travelAgency"
+        if data["rows"]
+            each item in data["rows"]
+                li.agency-item
+                    a(href="/travelAgency/travelAgencyDetail/"+item.crop)
+                        .agency-img-box
+                            img.agency-img(src=item.picUrl?item.picUrl:"/images/demo/foods-list1.jpg",alt="图片")
+                        .agency-content
+                            p.agency-name=item.name
+                            p.agency-licence 许可证：#{item.licence}
+                            p.agency-addr 地址:#{item.address}
+                        a.agency-go(href="/detail/location?location="+item.latitudeLongitude+"&address="+item.address)
+                            p.go-icon-box
+                                i.icon.iconfont.icon-quzheli
+                            span.go-text  到这里去
+if method === "ajax"
+    +list(data[0].data,module)

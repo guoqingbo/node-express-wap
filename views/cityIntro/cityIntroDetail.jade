@@ -1,0 +1,139 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/cityIntro/cityIntroDetail.css")
+block javascripts
+    //script(type='text/javascript', src='/javascripts/cityIntro/cityIntroDetail.js')
+block content
+    //- 头部
+    if data[0].data.destinationDetailContent[0]
+        -var item = data[0].data.destinationDetailContent[0];
+            .header
+                img.img(src=item.img?item.img:"/images/viewIntro/headerBg.png",alt="图片")
+                .header-into
+                    .logo
+                        img.logo-img(src=item.logoImg?item.logoImg:"/images/viewIntro/headerBg.png",alt="图片")
+                    .view-title
+                        .title-name= item.name
+                        .voice-intro
+                            if item.audioNavigation
+                                img.voice-img(src="/images/viewIntro/voice1.png")
+                            else
+                                //img.voice-img(src="/images/viewIntro/voice2.png")
+                                img.voice-img(src="/images/viewIntro/voice3.png")
+                    .goto
+                        a(href="/detail/location?location=" + item.LatAndlon+ "&&address=" + item.address)
+                            img.goto-img(src="/images/viewIntro/goto.png")
+                            .come-person #{item.personNum}人来过
+                .view-summary
+                    .section-title
+                        span.title-name 景区简介
+                        span.more.js_more
+                            i.icon.iconfont.icon-right
+                    p.content=item.shortInfo
+            .line
+    //-景区直播
+    .view-live
+        .section-title
+            span.title-name 景区直播
+        ul
+            if data[0].data.viewLive
+                each item in data[0].data.viewLive
+                    li.item
+                        .title-name= item.name
+                        .video-box
+                            video.item-video(src=item.videoUrl,controls=false)
+                            .play-box
+                                span.play-btn
+                                    i.icon.iconfont.icon-bofang1
+                        .time
+                            i.icon.iconfont.icon-time
+                            | #{item.viewNum}人再看
+    .line
+    //-推荐景区 游玩攻略
+    .scene-recomend
+       .section-title
+           span.title-name 游玩攻略
+       ul.list
+           if data[0].data.playStrategy
+               each item in data[0].data.playStrategy
+                   li.item
+                       a(href=item.detail)
+                           img.item-img(src=item.img,alt="图片")
+                           .into
+                                .left=item.name
+                                .right
+                                   i.icon.iconfont.icon-xin
+                                   span=item.careNum
+
+    //-景区简介弹出层
+    if data[0].data.destinationDetailContent[0]
+        -var item = data[0].data.destinationDetailContent[0];
+            .view-intro-pop
+                .item
+                    .section-title
+                        span.title-name 景区简介
+                    p.content=item.shortInfo
+                .item
+                    .section-title
+                        span.title-name 优惠政策
+                    p.content=item.favouredPolicy
+                .item
+                    .section-title
+                        span.title-name 提供服务
+                    ul.content.server
+                        -var server = item.server.split(",");
+                            if server.indexOf("0")>=0
+                                li.server-item
+                                    i.icon.iconfont.icon-WIFIwofi1
+                                    | 免费wifi
+                            if server.indexOf("1")>=0
+                                li.server-item
+                                    i.icon.iconfont.icon-park
+                                    | 免费泊车
+                            if server.indexOf("2")>=0
+                                li.server-item
+                                    i.icon.iconfont.icon-knife-fork
+                                    | 提供午餐
+                .item
+                    .section-title
+                        span.title-name 交通指南
+                    p.content 长白山脉是鸭绿江、松长白山脉是鸭绿江、松长白山脉是鸭绿江、松花江和图们江的发源地。是中国满族的发祥地和满族文化圣山。长白山脉的“长白”二字还有一个美好的寓意，即为长相
+
+    //-蒙层
+    .mask
+    script(type='text/javascript').
+        /**
+         * 视频播放暂停
+         */
+        $(".video-box").click(function () {
+            if ($(this).hasClass("play")) {
+                $(this).find("video").trigger("pause");
+                $(this).removeClass('play');
+                // $(this).addClass('pause');
+            } else {
+                //暂停其它视频
+                $("video").trigger("pause");
+                $("video").parents(".video-box").removeClass('play');
+
+                $(this).find("video").trigger("play");
+                // $(this).removeClass('pause');
+                $(this).addClass('play');
+            }
+        })
+
+
+        $(".mask").click(function () {
+            $(".mask").hide();
+            $(".view-intro-pop").hide()
+        })
+        //显示景区介绍弹层
+        $(".js_more").click(function () {
+            $(".mask").show();
+            $(".view-intro-pop").show()
+        })
+        //隐藏景区介绍弹层
+        $(".view-intro-pop").click(function () {
+            $(".mask").hide();
+            $(".view-intro-pop").hide()
+        })
+

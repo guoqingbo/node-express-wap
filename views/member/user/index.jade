@@ -1,0 +1,70 @@
+extends ../../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+    script(type='text/javascript', src='/javascripts/member/user.js')
+block content
+    include ../../common/footer/footer
+    - var _data = data[0].data;
+    ul.order-list.account-list
+        li
+            label.lab-title 姓名
+            .order-item
+                a(href='/member/user/realName')
+                    span=_data.realName
+            a(href='/member/user/realName')
+                i.font-icon.icon-iconfont-jiantou
+        li
+            label.lab-title(for='') 性别
+            .order-item
+                a#sex(href='javascript:;')
+                    span=_data.sex === 'X' ? '女' : '男'
+            i.font-icon.icon-iconfont-jiantou
+    .page-line
+    ul.order-list.account-list
+        li
+            label.lab-title(for='') 身份证
+            .order-item
+                a(href='/member/user/idcard')
+                    span=_data.idcard
+            a(href='/member/user/idcard')
+                i.font-icon.icon-iconfont-jiantou
+        li
+            label.lab-title(for='') 手机号
+            .order-item
+                a(href='/member/user/mobile')
+                    span=_data.mobile
+            a(href='/member/user/mobile')
+                i.font-icon.icon-iconfont-jiantou
+        //- li
+          label.lab-title(for='') 地址
+          .order-item
+            a(href='/member/user/userTel')
+              span 未绑定
+              i.font-icon.icon-iconfont-jiantou
+        li
+            label.lab-title(for='') 邮箱
+            .order-item
+                a(href='/member/user/email')
+                    span=_data.email === undefined ? '未绑定' : _data.email
+            a(href='/member/user/email')
+                i.font-icon.icon-iconfont-jiantou
+    .page-line
+    ul.order-list.account-list
+        li
+            label.lab-title(for='') 修改密码
+            .order-item
+            a(href='/member/changePassword')
+                i.font-icon.icon-iconfont-jiantou
+    #sexDialog.sex-dialog
+        ul
+            li(data-index='Y')
+                a.c-333.c-base(href='javascript:;') 男
+            li(data-index='X')
+                a.c-333(href='javascript:;') 女
+        .sex-handle.btn-handle
+            a#close.btn(href='javascript:;') 取消
+    #mask.mask
+
+    +footer

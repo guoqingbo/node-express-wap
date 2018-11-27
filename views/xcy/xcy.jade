@@ -1,0 +1,124 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/javascripts/common/cityPicker/cityPicker.css")
+    link(rel="stylesheet", href="/stylesheets/xcy/xcy.css")
+
+block javascripts
+    script(type='text/javascript', src='/javascripts/common/cityPicker/cityPicker.js')
+    script(type='text/javascript', src='/javascripts/common/pinyin.js')
+    script(type='text/javascript', src='/javascripts/xcy.js')
+block content
+    include ../common/footer/footer
+    //-头部
+    .header
+        .top
+            img.header-img(src=data[0].data["header"][0].headerBg,alt="图片")
+            .header-tag
+                .city
+                    //i.icon.iconfont.icon-3
+                    span.city-name 安图
+                    //span.change-city#change-city 切换城市
+                    //input.change-city(type='text', value='', name='', placeholder='切换城市')
+                .weather
+
+                #weather(style="display:none")
+                    iframe(width="200" scrolling="no" height="22" frameborder="0" allowtransparency="true" src="//i.tianqi.com/index.php?c=code&id=1&color=%23FFFFFF&icon=1&py=antu&wind=1&num=1&site=12")
+        .middle
+            .city-spread
+                h4 城市宣传片
+                p.time
+                    i.icon.iconfont.icon-time
+                    =data[0].data["citySpread"][0].time
+            a(href="/xcy/citySpread").more
+                i.icon.iconfont.icon-gengduo
+        .header-video.video-box
+            video(src=data[0].data["citySpread"][0].videoUpload,controls=false)
+            .play-box
+                span.play-btn
+                    i.icon.iconfont.icon-bofang1
+     .line
+    //-直播推荐
+    .live-recommend
+        .section-header
+            img(src="/images/xcy/xcyIcon2.png",alt="图片")
+            span 直播推荐
+        .Cooldog_container
+            .Cooldog_content
+                ul
+                    each item,index in data[0].data["liveRecomend"]
+                        -if(index>4){break}
+                        li(class= index === 1 ? "active": "")
+                            .video-box
+                                video(src=item.videoUrl,controls=false)
+                                .play-box
+                                    span.play-btn
+                                        i.icon.iconfont.icon-bofang1
+                            p.extra
+                                span.duration
+        a.look-more(href="/xcy/liveRecomend") 查看更多
+    .line
+    //-精品游记
+    .fine-travel
+        .section-header
+            img(src="/images/xcy/xcyIcon1.png",alt="图片")
+            span 精品游记
+        ul
+            each item,index in data[0].data["fineTravel"]
+                -if(index>1) break;
+                li
+                    .item-name=item.title
+                    img(src=item.img,alt="图片")
+                    .bottom
+                        i.icon.iconfont.icon-xin
+                        span= item.careNum
+                //li
+                //    .item-name 一个人的旅行：古村落探访记
+                //    img(src="http://odl5az86x.bkt.clouddn.com/20164524094536780.jpg")
+                //    .bottom
+                //        i.icon.iconfont.icon-xin
+                //        span 3000
+        a.look-more(href="/xcy/fineTravel") 查看更多
+
+    .line
+    //-推荐景区
+    .scene-recomend
+        .section-header
+            img(src="/images/xcy/xcyIcon3.png",alt="图片")
+            span 推荐景区
+        ul
+            each item,index in data[0].data["recommendView"]
+                -if(index>3) break;
+                li
+                    img(src=item.img,alt="图片")
+                    .into
+                         .left= item.title
+                         .right
+                            i.icon.iconfont.icon-xin
+                            span=item.careNum
+                //li
+                //    img(src="http://odl5az86x.bkt.clouddn.com/20164524094536780.jpg")
+                //    .into
+                //        .left 红旗村
+                //        .right
+                //            i.icon.iconfont.icon-xin
+                //            span 3000
+                //li
+                //    img(src="http://odl5az86x.bkt.clouddn.com/20164524094536780.jpg")
+                //    .into
+                //        .left 红旗村
+                //        .right
+                //            i.icon.iconfont.icon-xin
+                //            span 3000
+                //li
+                //    img(src="http://odl5az86x.bkt.clouddn.com/20164524094536780.jpg")
+                //    .into
+                //        .left 红旗村
+                //        .right
+                //            i.icon.iconfont.icon-xin
+                //            span 3000
+
+        a.look-more(href="/xcy/recommendView") 查看更多
+    +footer
+
+

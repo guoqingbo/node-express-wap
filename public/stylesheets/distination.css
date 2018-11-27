@@ -1,0 +1,27 @@
+.distination-list{
+    background-color: #fff;
+    padding: .5rem;
+}
+.distination-item{
+    border-bottom: 1px solid #f4f4f4;
+}
+.distination-title{
+    height:2rem ;
+    line-height: 2rem;
+    font-size: .7rem;
+}
+.distination-img{
+    width: 100%;
+    height:6rem ;
+    border-radius: .2rem;
+}
+.distination-info{
+    height:1.3rem ;
+    line-height: 1.3rem;
+    font-size: 0.5rem;
+    color:#999 ;
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,52 @@
+extends layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+block content
+    if data[0].flag === 'error'
+        .pay-results
+            img.font-icon(src='/images/member/fail.png', alt='')
+            p 支付失败
+    else
+        .pay-results
+            img.font-icon(src='/images/member/success.png', alt='')
+            p 支付成功
+        .results-info(style="text-align:center;")
+            if typeof data[0].data.orderDescription !== 'undefined'
+                p(style="line-height:1.4;margin-bottom:.25rem;") #{data[0].data.orderDescription}
+            p 支付订单号：#{data[0].data.payOrderNo}
+            p 支付金额：#{data[0].data.paySum}
+            p
+                if data[0].data.message
+                    | #{data[0].data.message}
+                else
+                    | 已成功提交，请查收您的
+                    em.c-base 短信
+                    | ！
+    .btn-bottom
+        case rePage
+            when 'amuse'
+                - rePage = 'amusement'
+            when 'park'
+                - rePage = 'ticket'
+            when 'company'
+                - rePage = 'car'
+            when 'eatery'
+                - rePage = 'repast'
+            default
+                - rePage = data[0].data.orderType
+
+        .btn-handle
+            if data[0].flag === 'error'
+                a.btn(href='/pay/' + rePage + '/' + data[0].data.orderNo)
+                    | 继续支付
+            else
+                a.btn(href= orderNo ? '/member/order/' + orderNo : '/member/order/'+data[0].data.orderNos[0]) 查看订单
+            a.btn(href='/') 返回首页
+
+        if backDetailUrl
+            .btn-handle
+                a.btn-RP(href=backDetailUrl) 继续购买
+
+

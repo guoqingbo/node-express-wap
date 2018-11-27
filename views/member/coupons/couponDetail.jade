@@ -1,0 +1,32 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/coupons.css")
+    style.
+        body {background-color: #b12725}
+block javascripts
+    script(type='text/javascript', src='/javascripts/getCoupon.js')
+block content
+    - const info = data[0].data;
+    .coupons_bg
+        .coupons-details
+            .coupons_ticket
+               .hb_img
+                   img(src="/images/coupons/img_hongbao.png")
+               i.coupons_bg
+                    img(src="/images/coupons/bg_hongbao.png")
+            case info.couponType
+                when '0'
+                    h3.coupons_tit 点击领取#{info.couponValue}元优惠券
+                when '1'
+                    h3.coupons_tit 点击领取#{(parseInt(info.couponValue)/10)}折优惠券
+            if info.timesLimit > (info.receiveNum || 0)
+                a.view_btn#getCouponBtn(data-code=info.couponCode)
+                    | 领取
+            else
+                span.view_btn.none 已领完
+            .coupons_tips!=info.content
+    .mask#mask
+    .tips
+        p
+        a(href="javascript:;").queding 确定

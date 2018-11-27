@@ -1,0 +1,39 @@
+html,body{
+    height: 100%;
+    background-color: #fff;
+}
+.header{
+    padding: 0 .5rem;
+    background-color: #fff;
+}
+.header-title{
+    font-size: .6rem;
+    padding: .5rem 0;
+}
+.information-time{
+    font-size: .5rem;
+    color: #999;
+    padding-bottom: .3rem;
+    white-space: nowrap;
+}
+.information-time .icon-time{
+    margin-right: .2rem;
+    vertical-align: middle;
+}
+.information-time .information-time-value{
+    vertical-align: middle;
+}
+.information-content-box{
+    font-size: .6rem;
+    padding:0 .5rem;
+    background-color: #fff;
+}
+.information-content-text{
+    padding: .5rem 0 1.5rem 0;
+    border-top: 1px solid #eee;
+}
+.information-img{
+    width: 100%;
+    height:6.9rem ;
+    border-radius: .2rem;
+}

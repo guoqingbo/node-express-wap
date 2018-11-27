@@ -1,0 +1,28 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+block style
+block content
+    .complaint-box
+        h4.complaint-title 投诉建议
+        .comment-disc
+            p 您的每一次建议
+            p 都是我们前进的动力
+        ul.complaint-ul
+            li
+                a(href="/complaint/online")
+                    i.icon.iconfont.icon-zaixian
+                    |在线投诉
+            li
+                a(href="tel:123456")
+                    i.icon.iconfont.icon-dianhua
+                    |电话投诉
+            li
+                a(href="/complaint/suggest")
+                    i.icon.iconfont.icon-zan1
+                    | 建议
+        p.aonser 常见问题解答
+    script(type='text/javascript').
+        $(".complaint-box").height($(window).height())

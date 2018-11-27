@@ -1,0 +1,23 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/lib/dropload/dropload.css")
+    link(rel="stylesheet", href="/stylesheets/list.css")
+    link(rel="stylesheet", href="/stylesheets/coupons.css")
+block javascripts
+    script(type='text/javascript', src='/lib/dropload/dropload.min.js')
+    script.
+        var from = '#{from}',fromUrl = '#{fromUrl}',productType = '#{productType}', productCode = '#{productCode}'
+    script(type='text/javascript', src='/javascripts/coupons.js')
+block content
+
+    if from === 'member'
+        section.header-tab.goods-header
+            ul#search_tab.tab.clearfix.ticket-tab.goods-tab.coupons-tab
+                li.on(data-div='able')
+                    a(href='javascript:;') 可用优惠券
+                li(data-div='all')
+                    a(href='javascript:;') 全部优惠券
+    .coupons-details
+        .coupons_list.drop-box
+            ul

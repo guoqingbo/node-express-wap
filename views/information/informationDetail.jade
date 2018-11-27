@@ -1,0 +1,13 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/information/informationDetail.css")
+block javascripts
+block content
+    .header
+        h4.header-title=data.name
+        p.information-time
+            i.icon.iconfont.icon-time
+            span.information-time-value=data.createTime
+    .information-content-box
+        p.information-content-text!=data.detail
+        img.information-img(src=data.img?data.img:"/images/demo/foods-list1.jpg",alt="图片")

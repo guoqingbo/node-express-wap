@@ -1,0 +1,72 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/calendar.css")
+  link(rel="stylesheet", href="/stylesheets/detail.css")
+  link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+  script(type='text/javascript', src='/javascripts/pageItem.js')
+  script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+  script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+  script(type='text/javascript', src='/lib/validate/additional-methods.js')
+block content
+  include ../common/index
+  form(action="/", method="post")#cop-form
+      ul#user.order-list.myorder-list.cop-list
+        li
+          label.lab-title.area-tit 问题描述
+          .order-item
+              textarea(name='info')
+              // label请删除，此为模拟表单验证
+              // label.error 姓名输入有误
+        li
+          label.lab-title 姓名
+          .order-item
+            input.order-text#name(type='text', value='', name='name', placeholder='')
+            // label请删除，此为模拟表单验证
+            // label.error 姓名输入有误
+        li.borb
+          label.lab-title(for='') 手机
+          .order-item
+            input.order-text#phone(type='tel', value='', name='phone', placeholder='')
+            // i.font-icon.fr.icon-iconfont-xie
+      div.order-footer.cop-footer
+        .order-total.float-layer
+          a.btn-order.background-base.cop-btn(href='javascript:;')#cop-sub 提交
+
+  script(type='text/javascript').
+      var validator = $('#cop-form').validate({
+          rules: {
+              info: {
+                  required: true,
+                  isCode:true
+              },
+              name: {
+                  required: true,
+                  maxlength: 8,
+                  han: true
+              },
+              phone: {
+                  isMobile: true,
+                  required: true
+              }
+          }
+      });
+      $('#cop-sub').click(function () {
+          if (validator.form()) {
+              $.post('/complaint/suggest',{ question:$('textarea').val(), linkName:$('#name').val(), linkMobile:$('#phone').val() })
+                  .success(function (data) {
+                      console.log(data)
+                      if (data[0].status === 200) {
+                          alert('提交成功');
+                          window.location.href = '/';
+                      } else if (data[0].status === 402) {
+                          alert(data[0].message);
+                      }
+                  })
+                  .error(function (err) {
+                      window.location.href = '/error';
+                  });
+          }
+      });
+

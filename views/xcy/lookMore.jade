@@ -1,0 +1,65 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/xcy/lookMore.css")
+block javascripts
+
+block content
+    a.back-bar(href='javascript:window.history.back(-1);')
+    if module === "citySpread" || module === "liveRecomend"
+        .look-more
+            ul
+                each item in data[module]
+                    li
+                        .title-name= item.title
+                        .video-box
+                            video(src=item.videoUpload,controls=false)
+                            .play-box
+                                span.play-btn
+                                    i.icon.iconfont.icon-bofang1
+                        .bottom
+                            i.icon.iconfont.icon-time
+                            =item.time
+
+                //li
+                //    .title-name 一个人的旅行：古村落探访记
+                //    .video-box
+                //        video(src="/video/1.mp4",controls=false)
+                //        .play-box
+                //            span.play-btn
+                //                i.icon.iconfont.icon-bofang1
+                //    .time
+                //        i.icon.iconfont.icon-time
+                //        | 2018/08/18 15:00
+    else
+       .look-more
+           ul
+               each item in data[module]
+                   li.look-more-item
+                       .title-name=item.title
+                       .img-box
+                           img(src=item.img,alt="图片")
+                       .bottom
+                           i.icon.iconfont.icon-xin
+                           span= item.careNum
+    script(type='text/javascript').
+        /**
+         * 视频播放暂停
+         */
+        $(".video-box").click(function () {
+            if ($(this).hasClass("play")) {
+                $(this).find("video").trigger("pause");
+                $(this).removeClass('play');
+                // $(this).addClass('pause');
+            } else {
+                //暂停其它视频
+                $("video").trigger("pause");
+                $("video").parents(".video-box").removeClass('play');
+
+                $(this).find("video").trigger("play");
+                // $(this).removeClass('pause');
+                $(this).addClass('play');
+            }
+        })
+
+

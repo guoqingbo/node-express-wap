@@ -1,0 +1,24 @@
+mixin orderBtn(data,module,page)
+  .order-footer
+    .order-total.float-layer
+      if page==='detail'
+        if data.isAble==0
+          a.formBtn.fr.btn-order.background-gray(javascript="javascript:;") 立即预订
+        else
+          if module === 'combo' || module === 'shop'|| module === 'car'|| module === 'guide'
+            a.formBtn.fr.btn-order.background-base(href='/order/'+module+'/'+data.id+'?rateCode='+data.rateCode) 立即预订
+          else
+            a.formBtn.fr.btn-order.background-base(href='/order/'+module+'/'+data.id) 立即预订
+      else
+        a.formBtn.fr.btn-order.background-base(href='javascript:;') 提交订单
+        //- span.formBtn.fr.btn-order.background-cat(href='javascript:;') 加入购物车
+        p.total-price
+          | 总计:
+          span.price
+            em ￥
+            strong#totalprice 0.00
+            em.c-999.couponHandlePrice
+            em.c-price.payPrice    
+            if module==='hotel'
+              span#cost.cost.c-base 费用明细
+           

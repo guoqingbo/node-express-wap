@@ -1,0 +1,93 @@
+/*头部*/
+.header{
+    background-color: #fff;
+}
+.header-img-box{
+    overflow: hidden;
+    width: 100%;
+    height:6.7rem;
+    border-radius: 0 0 50% 50%/0 0 20% 20%;
+}
+.herder-img{
+    width: 100%;
+    height: 100%;
+    filter:blur(2px);
+}
+
+.herder-img-small{
+    display: block;
+    width: 3.05rem;
+    height: 3.05rem;
+    border-radius: 100%;
+    margin:0 auto;
+    transform: translateY(-1.52rem);
+}
+.header-content{
+    text-align: center;
+    margin-top: -1.2rem;
+}
+.header-title{
+    font-size: .7rem;
+    padding-bottom: .2rem;
+}
+.header-licence{
+    color: #999;
+    font-size: .5rem;
+    padding-bottom: .5rem;
+}
+/*旅行社列表信息*/
+.agency-info-list{
+    padding: .5rem;
+    background-color: #fff;
+}
+.agency-info-item{
+    height:2.2rem ;
+    line-height: 2.2rem;
+    font-size: .65rem;
+    border-bottom: 1px solid #f4f4f4;
+}
+.agency-item-lable{
+     float: left;
+ }
+.agency-item-value{
+    float: right;
+    color: #f00;
+}
+/*在售产品*/
+.onsale-prod{
+    background-color: #fff;
+    padding:0 .5rem;
+}
+.section-tittle{
+    height:2.25rem ;
+    line-height: 2.25rem;
+    font-size: .65rem;
+}
+.onsale-item{
+    display: flex;
+    margin-bottom: .5rem;
+}
+.onsale-img{
+    width: 5.51rem;
+    height:4.5rem;
+    border-radius: .2rem;
+    margin-right: .4rem;
+}
+.onsale-content{
+    height:4.5rem ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: .6rem;
+}
+.onsale-detail-go{
+    box-sizing: border-box;
+    width: 2.9rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    font-size: .5rem;
+    color: #f00;
+    text-align: center;
+    border: 1px solid #f00;
+    border-radius: 0.2rem;
+}

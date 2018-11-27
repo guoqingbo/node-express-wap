@@ -1,0 +1,28 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/complaintList.css")
+block javascripts
+block style
+block content
+    .complaint-header
+        img(src="/images/complaint/headerBg.png")
+        .tip
+            p 您的每一次建议
+            p 都是我们前进的动力
+    ul.complaint-ul
+            li
+                a(href="/complaint/online")
+                    img(src="/images/complaint/online.png")
+                    p 在线投诉
+            li
+                a(href="tel:123456")
+                    img(src="/images/complaint/telphone.png")
+                    p 电话投诉
+            li
+                a(href="/complaint/suggest")
+                    img(src="/images/complaint/proposal.png")
+                    p 建议
+    p.complaint-bottom 技术支持：深大智能
+    script(type='text/javascript').
+

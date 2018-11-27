@@ -1,0 +1,62 @@
+//头部
+mixin header(data,module)
+    if module === "sencondsKill"
+        img.activity-header-img(src=data.wapPath ? data.wapPath : "/images/demo/foods-list1.jpg",alt="图片")
+        .activity-header-middle
+            p.activity-price
+                span.activity-price-now-icon ￥
+                span.activity-price-now-num=data.secondsKillPrice
+                span.activity-price-old ￥ #{data.orignalPrice}
+                span.activity-already-buy 已抢购#{(data.totalNum - data.oldTotalNum)}件
+            h5.activity-title #{data.activityName}
+        .activity-header-bottom
+            i.icon.iconfont.icon-time
+            span.activity-qiang 抢
+            span.activity-gou 购
+            span.activity-count-text 距离结束
+            .time-count-box.time-count(data-endtime = data.endTime)
+    if module === "groupBuy"
+        img.activity-header-img(src=data.linkMobileImg ? data.linkMobileImg: "/images/demo/foods-list1.jpg",alt="图片")
+        .activity-header-middle
+            p.activity-price
+                span.activity-price-now-icon ￥
+                span.activity-price-now-num=data.priceShow
+                span.activity-price-old ￥ #{data.rateCodePrice}
+                span.activity-already-buy 已拼成#{(data.groupedAmount)}件
+            h5.activity-title #{data.spotName}
+
+//选项卡
+mixin tab(data,module)
+    if module === "sencondsKill"
+        ul.activity-tab-list
+            li.activity-tab-item.active 产品介绍
+            li.activity-tab-item 预订须知
+        .activity-tab-content
+            .tactivity-tab-panel!=data.activityIntr
+            .tactivity-tab-panel!=data.orderNotice
+    if module === "groupBuy"
+        ul.activity-tab-list
+            li.activity-tab-item.active 产品介绍
+            li.activity-tab-item 预订须知
+        .activity-tab-content
+            .tactivity-tab-panel!=data.activityIntr
+            .tactivity-tab-panel!=data.orderNotice
+
+//按钮
+mixin btn(data,module)
+    if module === "sencondsKill"
+        if data.activityStatus == 1
+            a.buy-now(href='/order/sencondsKill/' + data.activityCode) 立即抢购
+        else
+            a.buy-now.bug-end(href="javascrit:;")= data.activityStatusText
+    if module === "groupBuy"
+        a.buy-btn.buy-one(href=data.orderUrl)
+            p.group-btn-price ￥ #{data.rateCodePrice}
+            p 单独购买
+        a.buy-btn.buy-group(href='/order/groupBuy/' + activityId + '?groupFlag=2')
+            .group-btn-img-box
+                img.group-btn-img(src="/images/discountActivity/pin-logo.png")
+            .group-btn-text
+                p.group-btn-price ￥ #{data.collagePrice}
+                p 发起拼团
+

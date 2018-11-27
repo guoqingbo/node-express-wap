@@ -1,0 +1,229 @@
+/*头部*/
+.activity-header{
+    background-color: #fff;
+}
+.activity-header-img{
+    width: 100%;
+    height:7.5rem ;
+}
+.activity-header-middle{
+    border-bottom: 1px solid #f4f4f4;
+}
+.activity-price{
+    padding: 0.5rem 0 0 0.5rem;
+    color: #f00;
+    font-size: 0.7rem;
+}
+.activity-price-now-icon{
+    font-size: 0.5rem;
+}
+.activity-price-now-num{
+    margin-right: 0.5rem;
+}
+.activity-price-old{
+    font-size: 0.5rem;
+    color:#888;
+}
+.activity-already-buy{
+    padding: 0.1rem .6rem;
+    float: right;
+    font-weight: lighter;
+    border-radius:1rem 0 0 1rem ;
+    background-color:#ffe8e9 ;
+}
+.activity-title{
+    padding: 0.5rem;
+    font-size: 0.7rem;
+}
+.activity-header-bottom{
+    height:2.2rem;
+    padding: 0 0.5rem;
+    line-height: 2.2rem;
+    color: #999;
+    font-size: 0.65rem;
+}
+.activity-header-bottom .icon-time{
+    margin-right: .3rem;
+    font-size: 0.8rem;
+    color: #f00;
+}
+.activity-qiang{
+    padding:.1rem .2rem;
+    background-color: #f00;
+    color: #fff;
+    border: 1px solid #f00;
+}
+.activity-gou{
+    padding:.1rem .2rem;
+    color: #f00;
+    border: 1px solid #f00;
+    margin-right: .8rem;
+}
+.activity-count-text{
+    color: #999;
+    /*margin-right: 0.5rem;*/
+}
+.time-count-box{
+    float: right;
+}
+.time:nth-child(2n+1){
+    background-color: #fff1f1;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    padding: .2rem;
+    color: #f00;
+}
+/*选项卡*/
+.activity-tab{
+    background-color: #fff;
+    overflow: hidden;
+}
+.activity-tab-list{
+    width: 100%;
+    overflow: hidden;
+    padding: .5rem 0;
+    margin: 0 .5rem;
+    border-bottom: 1px solid #eee;
+}
+.activity-tab-item{
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    text-align: center;
+    border-left: 1px solid #aaa;
+    font-size: .7rem;
+}
+.activity-tab-item:first-child{
+    border: none;
+}
+.activity-tab-content{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.tactivity-tab-panel{
+    transition: transform 300ms;
+    width: 100%;
+    flex-shrink:0;
+    box-sizing: border-box;
+    padding: .5rem;
+    transform: translateX(0);
+    min-height: 10rem;
+}
+.tactivity-tab-panel img{
+    max-width: 100%;
+}
+.activity-tab-list .active{
+    color: #f00;
+}
+/*立即抢购*/
+.buy-now{
+    display: block;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height:2.5rem ;
+    line-height: 2.5rem;
+    background-color: #ff6668;
+    color: #fff;
+    text-align: center;
+    font-size: .8rem;
+}
+.bug-end{
+    background-color: #999;
+}
+/*拼团人员列表*/
+.group-person-box{
+    background-color: #fff;
+}
+.group-list-title{
+    height: 1.9rem;
+    line-height: 1.9rem;
+    padding: 0 .5rem;
+    font-size: .7rem;
+}
+.group-list-title .icon-pintuan{
+    color: #f00;
+    margin-right: .5rem;
+    font-size: .8rem;
+}
+.group-person-num{
+    color: #f00;
+}
+.group-list{
+    padding: 0 .5rem;
+}
+.group-list-item{
+    border-top: 1px solid #e6e6e6;
+    height:3.1rem;
+}
+.group-img-box{
+    float: left;
+    height: 3.1rem;
+    line-height: 3.1rem;
+    margin-right: .5rem;
+}
+.group-img{
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 1.9rem;
+}
+.group-person-info{
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+.group-person-name{
+    font-size: .7rem;
+    padding: .2rem 0;
+}
+.group-person-content{
+    font-size: .5rem;
+    color: #999;
+}
+.group-person-left{
+    margin-right: .5rem;
+}
+.group-btn-box{
+    float: right;
+    height: 3.1rem;
+    line-height: 3.1rem;
+}
+.group-btn{
+    padding: .1rem .5rem;
+    border:1px solid #f00;
+    color: #f00;
+    font-size: .7rem;
+    border-radius: .1rem;
+}
+/*团购详情底部按钮*/
+.buy-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    text-align: center;
+    color: #fff;
+    font-size: .6rem;
+}
+.buy-one{
+    background-color: #ffc85d;
+    flex-direction: column;
+}
+.buy-group{
+    background-color: #ff6668;
+}
+.group-btn-img{
+    width: 1.1rem;
+    height: 1.25rem;
+    margin-right: .2rem;
+}
+.group-btn-price{
+    font-size: .7rem;
+}

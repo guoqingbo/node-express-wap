@@ -1,0 +1,45 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/list.css")
+block javascripts
+  script(type='text/javascript', src='/javascripts/cart.js')
+block content
+  include common/index
+
+  .cart-block
+    each item in data[0].datas
+      .shop-box(data-id=item.id)
+        .p-box
+          a.check(href='javascript:;')
+            i
+          span.tit
+            +getModule(item.bnsType)
+          i.font-icon.cart-del 
+          .cancel-ok
+            a.close(href='javascript:;') 返回
+            a.confirm(href='javascript:;') 确认
+        .bg-box
+          h3 [#{item.productName}]*#{item.amount}
+          p
+            span.fl.price-subtotal 应付
+            span.fl.c-f63 ￥#{item.finalSum}
+            input.price_num(type='hidden', value=item.finalSum)
+        .s-time
+          label 下单日期
+          span=item.createDateTime
+      .page-line
+  footer.order-footer
+    .order-total.float-layer
+      a#cart-pay-btn.fr.btn-order.background-base(href='javascript:;') 结算
+      p.total-price
+        a.check.check-all(href='javascript:;')
+          i
+        |   总计：
+        span.price.ze
+          em ￥
+          strong#totalprice.cart-totalprice 0
+  .mask#mask
+  .tips
+    p
+    a(href="javascript:;").queding 确定

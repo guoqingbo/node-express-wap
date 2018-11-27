@@ -1,0 +1,14 @@
+mixin footer()
+    .footerWrap
+        a(href='/', class= module === 'index'? 'on': '')
+            i.icon-ihome
+            p 首页
+        a(href='/navigation', class= module === 'navigation'? 'on': '')
+            i.icon.iconfont.icon-daolan
+            p 导览
+        a(href='tel:123456', class= module === 'kefu'? 'on': '')
+            i.icon.iconfont.icon-kefu
+            p 客服
+        a(href='/member', class= module === 'member'? 'on': '')
+            i.icon-imember
+            p 我的

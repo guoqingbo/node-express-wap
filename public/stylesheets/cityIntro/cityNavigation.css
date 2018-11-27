@@ -1,0 +1,52 @@
+html,body{
+    background-color: #fff;
+    height: 100%;
+}
+/*搜索*/
+.search{
+    padding: .2rem 1.7rem;
+    background-color: #f2f3f4;
+}
+.search-input{
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 0 1.5rem 0 1rem;
+    background-color: #fff;
+    border-radius:2rem;
+    height: 1.9rem;
+    width: 100%;
+}
+.search .icon-sousuo2{
+    margin-left: -1.4rem;
+    font-size: .7rem;
+    vertical-align: middle;
+}
+.search-title{
+    padding: .5rem;
+    background-color: #fff;
+    font-size: .7rem;
+    color:#999;
+}
+.search-lable-list{
+    background-color: #fff;
+    overflow: hidden;
+    padding:0 .5rem;
+}
+.search-lable-item{
+    font-size: .6rem;
+    float: left;
+    width: 3rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    background-color: #f2f3f5;
+    margin-right: .5rem;
+    border-radius: .2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.search-lable-list .active{
+    background-color: #f00;
+    color:#fff;
+}

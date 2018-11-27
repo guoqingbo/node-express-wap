@@ -1,0 +1,10 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/details.css")
+block javascripts
+  script(type='text/javascript', src='/lib/dropload/dropload.min.js')
+  script(type='text/javascript', src='/javascripts/list.js')
+block content
+  .drop-box
+    ul.comment-list

@@ -1,0 +1,163 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/calendar.css")
+    link(rel="stylesheet", href="/stylesheets/detail.css")
+    link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+    script(type='text/javascript', src='/javascripts/pageItem.js')
+    script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+    script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+    script(type='text/javascript', src='/lib/validate/additional-methods.js')
+block content
+    include ../common/index
+    form(action="/", method="post")#online-form
+        ul#user.order-list.myorder-list.cop-list
+            li
+                label.lab-title 事发点
+                .order-item
+                    input.order-text#location(type='text', value='', name='location', placeholder='')
+            li
+                label.lab-title 投诉对象
+                .order-item
+                    input.order-text#complaintFor(type='text', value='', name='complaintFor', placeholder='')
+            li
+                label.lab-title 投诉原因
+                .order-item
+                    input.order-text#complaintReason(type='text', value='', name='complaintReason', placeholder='')
+            li
+                label.lab-title 图片上传
+                .order-item
+                    //input.order-text#files(type='file', value='', name='files', placeholder='',multiple="multiple")
+                    input.order-text#files(type='file', value='', name='files')
+                div.img-preview.preview
+            li
+                label.lab-title 联系方式
+                .order-item
+                    input.order-text#linkPhone(type='tel', value='', name='linkPhone', placeholder='')
+
+            li
+                label.lab-title 联系人
+                .order-item
+                    input.order-text#linkName(type='text', value='', name='linkName', placeholder='')
+        div.order-footer.cop-footer
+            .order-total.float-layer
+                a.btn-order.background-base.cop-btn(href='javascript:;')#cop-sub 提交
+
+    script(type='text/javascript').
+        //表单验证
+        var validator = $('#online-form').validate({
+            rules: {
+                location: {
+                    required: true,
+                },
+                complaintFor:{
+                    required: true,
+                },
+                complaintReason: {
+                    required: true,
+                },
+                files:{
+                    required: true,
+                },
+                linkPhone: {
+                    isMobile: true,
+                    required: true
+                },
+                linkName: {
+                    required: true,
+                    maxlength: 8,
+                    han: true
+                },
+            }
+        });
+        //表单提交
+        $('#cop-sub').click(function () {
+            if (validator.form()) {
+
+                sendFiles($("#files").prop("files")).then(saveSubmit)
+
+                function saveSubmit(res){
+                    console.log(res)
+                    var complaintPicUrl = res.filesPath[0];
+                    $.post('/complaint/online', {
+                        location: $('#location').val(),
+                        complaintFor: $('#complaintFor').val(),
+                        complaintReason: $('#complaintReason').val(),
+                        linkPhone: $('#linkPhone').val(),
+                        linkName: $('#linkName').val(),
+                        complaintPicUrl: complaintPicUrl,
+                    })
+                        .success(function (data) {
+                            console.log(data)
+                            if (data[0].status === 200) {
+                                alert('提交成功');
+                                history.go(-1)
+                            } else if (data[0].status === 402) {
+                                alert(data[0].message);
+                            }
+                        })
+                        .error(function (err) {
+                            window.location.href = '/error';
+                        });
+                }
+            }
+        });
+        //图片预览及上传
+        $("#files").change(function () {
+            var preview = $('.preview');
+            preview.empty();
+            var files = $(this).prop("files");
+            // var files = document.querySelector('input[type=file]').files;
+            function readAndPreview(file) {
+                // 支持的图片类型（可自定义）
+                if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                    var reader = new FileReader();
+                    reader.addEventListener("load", function () {
+                        var image = new Image();
+                        image.src = this.result;
+                        preview.append(image);
+                    }, false);
+                    reader.readAsDataURL(file);
+                }else{
+                    alert("请选择正确的图片格式")
+                }
+
+            }
+            //files 就是input选中的文件，你也可以对上传图片个数进行限制 （files.length）
+            if (files) {
+                [].forEach.call(files, readAndPreview);
+            }
+        })
+        //图片上传
+        function sendFiles(files) {
+            // var deferred = $.Deferred();
+
+            if (files.length == 0) {
+                //没有选择文件直接返回
+                return;
+            }
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            return $.ajax({
+                url: '/upload/filesList',
+                type: 'post',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "JSON",
+                // success: function (res) {
+                //     console.log(res)
+                //     deferred.resolve(res);
+                //
+                // },
+                // error: function (e) {
+                //     console.log('upload faild');
+                //     deferred.reject(e);
+                // }
+            });
+            // return deferred.promise();
+        }

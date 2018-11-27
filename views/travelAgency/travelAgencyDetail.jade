@@ -1,0 +1,50 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/travelAgency/travelAgencyDetail.css")
+block javascripts
+block content
+    .header
+        .header-img-box
+            img.herder-img(src=data[0].data.picUrl?data[0].data.picUrl:"/images/demo/foods-details1.jpg",alt="图片")
+        img.herder-img-small(src=data[0].data.picUrl?data[0].data.picUrl:"/images/demo/foods-details1.jpg",alt="图片")
+        .header-content
+            h4.header-title=data[0].data.name
+            p.header-licence 许可证编号：#{data[0].data.licence}
+    .line
+    //- 产品信息列表
+    ul.agency-info-list
+        li.agency-info-item
+            span.agency-item-lable 企业编号
+            span.agency-item-value #{data[0].data.crop}
+        li.agency-info-item
+            span.agency-item-lable 许可证号
+            span.agency-item-value #{data[0].data.licence}
+        li.agency-info-item
+            span.agency-item-lable 地址
+            span.agency-item-value #{data[0].data.address}
+        li.agency-info-item
+            span.agency-item-lable 联系电话
+            span.agency-item-value #{data[0].data.tel}
+        li.agency-info-item
+            span.agency-item-lable 服务时间
+            span.agency-item-value #{data[0].data.serverTime}
+    // -在售产品
+    .line
+    .onsale-prod
+        .section-tittle 在售产品
+        ul.onsale-list
+            if data[0].data.travelProducts && data[0].data.travelProducts.length
+                each item in data[0].data.travelProducts
+                    li.onsale-item
+                        .onsale-img-box
+                            img.onsale-img(src=item.productImg?item.productImg:"/images/demo/foods-list1.jpg",alt="图片")
+                        .onsale-content
+                            p.onsale-name=item.productName
+                            a.onsale-detail-go(href=item.detailUrl) 查看详情
+            //li.onsale-item
+            //    .onsale-img-box
+            //        img.onsale-img(src="/images/demo/foods-list1.jpg",alt="图片")
+            //    .onsale-content
+            //        p.onsale-name 【门票】 长白山成人票长白山成人票长白山成人票
+            //        a.onsale-detail-go 查看详情
+

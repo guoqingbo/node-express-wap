@@ -1,0 +1,19 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/information/informationList.css")
+block javascripts
+block content
+    a.back-bar(href='javascript:window.history.back(-1);')
+    ul.information-list
+        if data[0].data.information.length
+            each item in data[0].data.information
+                li.information-item
+                    a(href="/information/informationDetail/"+item.baseCode)
+                        .information-img-box
+                            img.information-img(src=item.img?item.img:"/images/demo/foods-list1.jpg",alt="图片")
+                        .information-content
+                            p.information-name=item.name
+                            p.information-intro 简介：#{item.shortInfo}
+                            p.information-time
+                                i.icon.iconfont.icon-time
+                                span.information-time-value=item.createTime

@@ -1,0 +1,35 @@
+extends ../../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+  script.
+    var orderNo='#{orderNo}',modelCode = '#{modelCode}',module = '#{module}'
+  script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+  script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+  script(type='text/javascript', src='/lib/validate/additional-methods.js')
+  script(type='text/javascript', src='/javascripts/member/comment.js')
+block content
+  form#form
+    .comment-panel
+      p
+        textarea#comment.order-textarea(name='content', rows='10', placeholder='请写下您对我们的感受吧')
+    .common-num-box
+      p
+        strong 满意度评分
+        span.pfxtFen
+          i.font-icon.icon-iconfont-aixin.icon-star-full
+          i.font-icon.icon-iconfont-aixin.icon-star-full
+          i.font-icon.icon-iconfont-aixin.icon-star-full
+          i.font-icon.icon-iconfont-aixin.icon-star-full
+          i.font-icon.icon-iconfont-aixin.icon-star-full
+      p
+        label
+          input(type='checkbox', name='isAnonymous', value='1')
+          span 匿名评论
+    .btn-handle
+      a#sub.btn.comment-submit(href='javascript:;') 发表评论
+  .mask#mask
+  .tips
+    p
+    a(href="javascript:;").queding 确定

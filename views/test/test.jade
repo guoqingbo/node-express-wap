@@ -1,0 +1,97 @@
+extends ../layout
+
+block stylesheets
+  link(rel="stylesheet", href="/lib/swiper/swiper-3.4.1.min.css")
+  link(rel="stylesheet", href="/stylesheets/index.css")
+block javascripts
+  script(type='text/javascript', src='/lib/swiper/swiper-3.4.1.jquery.min.js')
+  script(type='text/javascript', src='/javascripts/index.js')
+block content
+  include ../common/footer/footer
+  img.index-pic(src="", alt="")
+  .page-line
+  ul.tab.index-tab.clearfix
+    li
+      a(href="/member")
+        img.index-icon(src="images/index/icon0.png", alt="")
+        span.index-text
+          | 个人中心
+    li
+      a(href="list/ticket")
+        img.index-icon(src="images/index/icon1.png", alt="")
+        span.index-text
+          | 门票-标准
+
+  ul.tab.index-tab.clearfix
+    li
+      a(href="list/hotel")
+        img.index-icon(src="images/index/icon2.png", alt="")
+        span.index-text
+          | 酒店-标准
+    li
+      a(href="list/combo")
+        img.index-icon(src="images/index/icon3.png", alt="")
+        span.index-text
+          | 套票-标准
+
+  ul.tab.index-tab.clearfix
+    li
+      a(href="list/zyx")
+        img.index-icon(src="images/index/icon3.png", alt="")
+        span.index-text
+          | 自由行-标准
+    li
+      a(href="list/route")
+        img.index-icon(src="images/index/icon4.png", alt="")
+        span.index-text
+          | 跟团游-标准
+
+  ul.tab.index-tab.clearfix
+    li
+      a(href="list/shop")
+        img.index-icon(src="images/index/icon5.png", alt="")
+        span.index-text
+          | 商品-标准
+    li
+      a(href="list/repast")
+        img.index-icon(src="images/index/icon6.png", alt="")
+        span.index-text
+          | 美食-标准
+
+
+    //li
+      a(href="list/traffic")
+        img.index-icon(src="images/index/icon9.png", alt="")
+        span.index-text
+          | 交通-标准
+
+  ul.tab.index-tab.clearfix
+
+    li
+      a(href="list/amuse")
+        img.index-icon(src="images/index/icon8.png", alt="")
+        span.index-text
+          | 娱乐-标准
+    li
+      a(href="list/car")
+        img.index-icon(src="images/index/icon9.png", alt="")
+        span.index-text
+          | 租车-标准
+    //li
+      a(href="javascript:;")
+        img.index-icon(src="images/index/icon6.png", alt="")
+        span.index-text
+          | 美食-商铺
+
+  ul.tab.index-tab.clearfix
+    li
+      a(href="list/strategy")
+        img.index-icon(src="images/index/icon7.png", alt="")
+        span.index-text
+          | 攻略-标准
+    li
+      a(href="login.html")
+        img.index-icon(src="images/index/icon.png", alt="")
+        span.index-text
+          | 敬请期待
+  .page-line

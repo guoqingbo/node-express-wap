@@ -1,0 +1,258 @@
+html{
+    height: 100%;
+}
+.map{
+    height: 100%;
+}
+/*搜索*/
+.search {
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    height: 2.5rem;
+    width: 100%;
+    line-height: 2.5rem;
+    text-align: center;
+    z-index: 10;
+}
+.search-input{
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 9.4rem;
+    height: 1.5rem;
+    padding: 0 1rem;
+    border: none;
+    border-radius: 1.5rem;
+    vertical-align: middle;
+}
+.search-input::placeholder{
+    color: #888;
+}
+.search-go{
+    display: inline-block;
+    margin-left: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border-radius: 1.5rem;
+    background-color: #19a0f1;
+    vertical-align: middle;
+}
+.search-go .iconfont{
+    font-size:1rem;
+    color: #fff;
+    /*vertical-align: middle;*/
+}
+.search-result{
+
+}
+.tangram-suggestion-main{
+    z-index: 9999;
+}
+/*选项卡*/
+
+.map-tab-box{
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    height: 5rem;
+    padding: 0 .5rem;
+    z-index: 10;
+    bottom: 3.2rem;
+}
+.map-tab{
+    /*width: 100%;*/
+    box-sizing: border-box;
+    /*padding: 0 1rem;*/
+    /*margin: 0 1rem;*/
+    background-color: #fff;
+    white-space: nowrap;
+    /*overflow: auto;*/
+    overflow: hidden;
+}
+.map-tab-content{
+    box-sizing: border-box;
+    display: inline-block;
+    height: 3.5rem;
+    width: 100%;
+    padding: 0 1rem;
+    transition: transform 500ms;
+    transform: translateX(0)
+}
+.map-content-list{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+.map-content-item{
+    width: 100%;
+    height: 100%;
+}
+.map-tab-img-box{
+    float: left;
+    height: 3.5rem;
+    line-height: 3.5rem;
+
+}
+.map-tab-img{
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 1.1rem;
+    vert-align: middle;
+}
+.map-tab-info{
+    float: left;
+    display: flex;
+    height: 3.5rem;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width:7rem;
+
+}
+.map-tab-info{
+    margin-left: .4rem;
+}
+.map-tab-title{
+    font-size: 0.6rem;
+    max-width: 7rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.map-tab-scroe{
+    margin-left: 0.2rem;
+    color: #f00;
+}
+.map-tab-telphone{
+    padding: 0.1rem 0;
+    font-size: .5rem;
+    color: #666;
+}
+.map-tab-price{
+    color: #f00;
+    font-size: 0.7rem;
+}
+.map-tab-icon-price{
+    font-size: 0.5rem;
+}
+.map-tab-addr{
+    font-size: 0.6rem;
+    max-width: 7rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.map-tab-go{
+    height: 3.5rem;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #666;
+    font-size: .4rem;
+}
+.go-icon-box{
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0 auto;
+    line-height: 1.25rem;
+    background-color: #f00;
+    border-radius: 1.25rem;
+}
+.go-icon-box .icon-quzheli{
+    font-size: 0.7rem;
+    color: #fff;
+    vertical-align: middle;
+}
+.map-tab-nav{
+    padding: 0 1.2rem;
+    background-color: #fff;
+}
+.map-tab-list{
+    overflow: hidden;
+    padding: .3rem 0;
+    border-top: 1px solid #eee;
+}
+.map-tab-item{
+    float: left;
+    width: 20%;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.5rem;
+    color: #666;
+    text-align: center;
+}
+.active{
+    border-radius: 1rem;
+    background-color:#ff6a6a;
+    color: #fff;
+}
+/*底部*/
+.map-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5.1rem;
+    transition: bottom 0.5s;
+    -webkit-transition: bottom 0.5s;
+}
+
+.map-btn {
+    display: block;
+    width: 3.75rem;
+    height: 0.75rem;
+    line-height: 0.75rem;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    font-size: 0.6rem;
+    text-align: center;
+    margin-bottom: -1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.map-btn i {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    color: #ab1338;
+    transition: transform 0.3s;
+    -webkit-transition: -webkit-transform 0.3s;
+}
+
+.map-btn-active i {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    padding-right: 0.25rem;
+}
+
+.travel-mold {
+    background-color: #fff;
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 0.25rem 0;
+}
+
+.travel-mold li {
+    box-sizing: border-box;
+    width: 25%;
+    float: left;
+    border-right: 1px solid #dcdcdc;
+}
+
+.travel-mold li a {
+    height: 1.75rem;
+    line-height: 1.75rem;
+    display: block;
+    font-size: 0.6rem;
+    text-align: center;
+}
+
+.travel-mold li a.hover {
+    color: #ab1338;
+}
+
+.travel-mold li a i {
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}

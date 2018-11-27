@@ -1,0 +1,66 @@
+extends layout
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/login.css")
+block javascripts
+  script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+  script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+  script(type='text/javascript', src='/lib/validate/additional-methods.js')
+  script(type='text/javascript', src='/javascripts/login.js')
+block content
+  body
+    .login-logo
+      img(src='/images/login/login-header.jpg', alt='sendinfo')
+    .login-main
+      #login_type.login-type.clearfix
+        span.on(data-index='0') 帐号登录
+        span(data-index='1') 动态密码登录
+      .login-list
+        form#submitForm
+          .input-box.text
+            i
+              img(src='images/login/ico_phone.png', alt='手机号')
+            input(type='text',name='loginName' placeholder='请输入手机号码')
+          .input-box.text
+            i
+              img(src='images/login/ico_password.png', alt='密码')
+            input(type='password',name='loginPass' placeholder='请输入密码')
+          .other-box.clearfix
+            .forget-password
+              a(href='/forgetPassword') 忘记密码？
+            .go-register
+              a(href='/register') 立即注册
+          .input-box.input-button
+            input#submitBtn(type='button',data-url=redir, value='立即登录')
+        //.input-box.link
+          a(href='#')
+            | 非会员直接预订
+            i.icon-iconfont-jiantou
+        //.third-party-login.clearfix
+          .third-party-title
+            i.line.fl
+            i.line.fr
+            span 使用第三方登录
+          .third-party-way
+            a(href='#')
+              img(src='images/login/ico_qq_03.png', alt='')
+            a(href='#')
+              img(src='images/login/ico_wx_03.png', alt='')
+            a(href='#')
+              img(src='images/login/ico_wb_03.png', alt='')
+      .login-list.quick-login(style='display: none')
+        form#submitLogin
+          .input-box.text#getCardPhone
+            //select.number-select(name='', id='')
+              option(value='') 中国 +86
+            i
+              img(src='images/login/ico_phone.png', alt='手机号')
+            input(type='text',name='mobile' placeholder='请输入手机号码')
+          .input-box.code.clearfix
+            input.fr#getCodeBtn(type='button', value='获取验证码',data-type='pcLogin')
+            input.input-code(type='tel',name='checkCode' placeholder='请输入验证码')
+          .input-box.input-button
+            input#quickLogin(type='button',data-url=redir, value='立即登录')
+    .mask#mask
+        .tips
+            p
+            a(href="javascript:;").queding 确定

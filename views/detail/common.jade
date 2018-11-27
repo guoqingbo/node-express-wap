@@ -1,0 +1,486 @@
+//- 详情介绍
+mixin information(data,module)
+    .details-info
+        h3.details-title.orient2=data[1].data.aliasName
+        if module === 'amusement' || module === 'cate'
+            p.details-explian
+                span.pro-flag.fr 总销量：#{data[1].data.totalSales || 0}
+                span.price
+                    strong ￥#{(+(data[1].data.referencePirce)).toFixed(2)}
+            p.details-explian.orient3=data[1].data.subtitle
+        else if module === 'guide'
+            p.details-explian
+                span.pro-flag.fr 总销量：#{data[1].data.salesNum || 0}
+                span.price
+                    strong ￥#{(+(data[1].data.priceShow)).toFixed(2)}
+        else if module === 'combo'
+            p.details-explian.orient3=data[1].data.subtitle
+            p.details-explian
+                span.c-base=data[1].data.salesNum
+                | 人出游
+                if data[1].data.currentPrice
+                    span.price.fr
+                        em ￥
+                        strong=data[1].data.currentPrice
+                    span.original-price.fr
+                        em ￥
+                        strong=data[1].data.priceShow
+        else if module === 'shop'
+            p.details-explian.orient3=data[1].data.subtitle
+            p.details-explian
+                span
+                    em.c-base #{data[1].data.salesNum || 0}
+                    | 人已付款
+                if data[1].data.currentPrice
+                    span.price.fr
+                        em ￥
+                        strong=data[1].data.currentPrice
+        else if module === 'car'
+            p.details-explian=data[1].data.modelName
+            p.details-explian
+                if data[1].data.price
+                    span.price.fr
+                        em ￥
+                        strong=data[1].data.price
+        else if module === 'ticket'
+            p.details-explian.details-jj= data[1].data.summary
+        else
+            p.details-explian.orient3=data[1].data.subtitle
+            p.details-explian
+                if data[1].data.labelsName
+                    - var labels = data[1].data.labelsName.split(',')
+                    each item in labels
+                        span.pro-flag.c-base.border-base=item
+                span.price.fr
+                    em ￥
+                    strong=(+data[1].data.price ||data[1].data.priceShow || 0).toFixed(2)
+                    | 起
+        if module === 'ticket'
+            //a.details-comment.ticket-comment(href='/list/commentList?modelCode=' + productCode + '&commentLevel=0')
+            a.details-comment.ticket-comment(href='#comment')
+                span.comment-pf
+                    =data[2].data.avgScore
+                    | 分
+                span.comment-num
+                    =data[2].data.count
+                    | 条评价
+                span.comment-bq
+                    - var starNum = parseInt(data[2].data.avgScore)
+                    each item in new Array(starNum)
+                        i.icon.iconfont.icon-start
+                    each item in new Array(5-starNum)
+                        i.icon.iconfont.icon-start.not-light
+
+        if  module === 'skiPark' ||module === 'hotel' || module === 'route' || module === 'repast' || module === 'shop' || module === 'guide' || module === 'combo' || module === 'car'
+            a.details-comment(href='/list/commentList?modelCode=' + productCode + '&commentLevel=0')
+                if data[2].data.avgScore
+                    span.comment-score.c-base
+                        em #{data[2].data.avgScore}
+                        - var starNum = parseInt(data[2].data.avgScore)
+                        each item in new Array(starNum)
+                            i.font-icon.icon-iconfont-aixin
+                        each item in new Array(5-starNum)
+                            i.font-icon.icon-iconfont-aixin.not-light
+                span 查看#{data[2].data.count}条评论
+                i.font-icon.fr.icon-iconfont-jiantou
+
+//- 详情列表
+mixin detailList(data1,data3,module)
+    unless module === 'shop'
+        ul.order-list.myorder-list
+            unless module === 'combo' || module === 'car' || module === 'route'
+                li
+                    if module === 'ticket'
+                        label.lab-title.location_ico
+                            i.icon.iconfont.icon-weizhi
+                        span.order-item.address-txts=data1.addr
+                        a.go-map(href='/detail/location', data-addr=data1.addr, data-latlng=data1.latitudeLongitude)
+                            |周边/地图
+                    else
+                        a.wrapLink(href='/detail/location')
+                            label.lab-title 地址
+                            .order-item.addr-content
+                                span.address-txt.ellipsis.orient2= data1.addr
+                            span.detail-location
+                                i.font-icon.icon-compass
+                                |  到这去
+                unless module === 'shop' || module === 'ticket'
+                    li
+                        -var tag=''
+                        case module
+                            when 'ticket'
+                                -tag='景区'
+                            when 'hotel'
+                                -tag='酒店'
+                            when 'amusement'
+                                -tag='娱乐'
+                            when 'repast'
+                                -tag='餐厅'
+                        a.wrapLink(href='/detail/content')
+                            label.lab-title #{tag}介绍
+                            i.font-icon.icon-iconfont-jiantou
+            unless module === 'ticket'
+                li
+                    a.wrapLink(href='/detail/orderNotice')
+                        label.lab-title(for='') 预订须知
+                        i.font-icon.icon-iconfont-jiantou
+            //if module === 'repast'
+            //    li
+            //        a.wrapLink(href='/detail/imgContent')
+            //            label.lab-title(for='') 图文详情
+            //            i.font-icon.icon-iconfont-jiantou
+            if module === 'ticket'
+                li
+                    label.lab-title.location_ico
+                        i.icon.iconfont.icon-jingtanhao
+                    span.order-item.address-txts 语音介绍
+                    i.icon.iconfont.icon-yuyin.audio-icon
+                    audio(style='display:none;', src=data1.voice)#audio_play
+                //li
+                //    label.lab-title.location_ico
+                //        i.icon.iconfont.icon-jingtanhao
+                //    .order-item
+                //        a(href='javascript:;')
+                //            span.ticket-ydx 语音介绍
+                //            i.font-icon.audio-icon
+                //            audio(style='display:none;', src=data1.voice)#audio_play
+        .page-line
+    if module === 'combo' || module === 'shop'
+        +detailTab(data1,module)
+    else if module !== 'guide' && module !== 'car'
+        +ticketList(data3,module)
+
+//- 展示类详情
+mixin detailShow(data,module)
+    if module === 'strategy'
+        .raiders-details
+            .raiders-info
+                h3=data.name
+                p
+                    span
+                        i.font-icon.icon-clock
+                        | #{data.createTime}
+                    span.fr
+                        i.font-icon.icon-views
+                        | #{data.viewNum}
+            .raiders-content!=data.content
+    else if module === 'qr'
+        - var qrLists = data.rows;
+        - if (qrLists.length > 0) var _info = qrLists[0];
+        .block_home_slider.details-slider
+            .swiper-container.detail-container
+                ul.swiper-wrapper
+                    li
+                        img(src=_info.pic)
+        .page-line
+        h3.details-list-title 票型
+        ul.details-list
+            each item in qrLists
+                li
+                    .pro-info
+                        h4.pro-info-title.orient2=item.ticketname
+                        p.pro-info-explian
+                            a.showDetail(href="javascript:;") 查看详情>
+                    .pro-price
+                        span.price
+                            em ￥
+                            strong #{item.price}
+                        span.original-price
+                            em ￥#{item.beforeprice}
+                    .ticket-layer
+                        a.close-ticket.font-icon.icon-iconfont-32pxchaxian(href='javascript:;')
+                        h3.notice-tit=item.ticketname
+                        .article-info.bgf
+                            .article-main!= item.ticketdetail
+                        .room-handle
+                            a.fr(href=item.url) 预订
+                            p
+                                | 价格
+                                span.price
+                                    em ￥
+                                    strong #{item.price}
+                    .pro-price
+                        a(href=item.url) 预订
+        .page-line
+        ul.order-list.myorder-list(style='border-bottom:1px solid #eeeeee')
+            li
+                label.lab-title(for='') 预订须知
+        .booking-info.article-info(style='background:white')!= _info.ydxz
+    else if module === 'car'
+        .car-rental
+            h3.car-rental-tit 配置信息
+            .car-rental-con!=data.configureinfo
+    else
+        .car-rental
+            h3.car-rental-tit 导游信息
+        ul.order-list.myorder-list.shadow-b
+            li
+                label.lab-title 掌握语言
+                .order-item
+                    .item-box
+                        span.pro-flag.c-base.border-base #{data.language}
+            li
+                label.lab-title 联系电话
+                .order-item
+                    .item-box
+                        a(href="tel:#{data.phone}")
+                            span=data.phone
+                            i.font-icon.icon-iconfont-dianhua
+        +detailTab(data,module)
+
+//- 票型列表
+mixin ticketList(data,module)
+    if module === 'ticket'
+        h3.details-list-title 产品推荐
+    if module === 'hotel'
+        .page-calendar
+            a#hotelCalendar
+                | 入住
+                span.c-base
+                | 离店
+                span.c-base
+                em 1
+                | 晚
+    if module === 'repast'
+        h3.details-list-title 餐券
+    else if module === 'hotel'
+        h3.details-list-title 房型
+    else if module !== 'amusement'
+        if module === 'ticket'
+            h3.details-list-title 门票
+        else
+            h3.details-list-title 票型
+
+    ul.details-list
+        - var ticketList = data['data'];
+        -console.log(data)
+        unless module === 'hotel'
+            if ticketList.length
+                each item,index in ticketList
+                    if module === 'repast'
+                        - var lists =item.webEateryRepastVos
+                    else if module === 'route'
+                        - var lists =item.webRoutePlans
+                    else
+                        - var lists =item.webParkTickets
+                    each sitem in lists
+                        li
+                            if module === 'ticket' || module === 'route'
+                                .pro-info
+                                    h4.pro-info-title.orient2=sitem.aliasName
+                                    p.pro-info-explian
+                                        a.showDetail(href="javascript:;")
+                                            = module === 'ticket'? "预订须知>":"查看详情>"
+                                .pro-price
+                                    span.price
+                                        em ￥
+                                        strong=(+sitem.currentPrice).toFixed(2)
+                                    span.original-price
+                                        em ￥#{(+sitem.priceShow || 0).toFixed(2)}
+                                .ticket-layer
+                                    a.close-ticket.font-icon.icon-iconfont-32pxchaxian(href='javascript:;')
+                                    h3.notice-tit=sitem.aliasName
+                                    .article-info.bgf
+                                        .article-main
+                                            != sitem.modelExplain
+                                    .room-handle
+                                        - let _href = sitem.enabled === 'T' ? '/order/' + module + '/' + sitem.rateCode + '?parkId='+ sitem.parkId: 'javascript:;'
+                                        a.fr(href=_href , class=sitem.enabled === 'T' ? '' : 'gray_btn') 预订
+                                        p
+                                            | 价格
+                                            span.price
+                                                em ￥
+                                                strong=(+sitem.currentPrice).toFixed(2)
+                            else if module === 'amusement'
+                                .pro-info
+                                    h4.pro-info-title.orient2=sitem.name
+                                    p.pro-info-explian 有效期：#{sitem.expiryDate}
+                                .pro-price
+                                    span.price
+                                        em ￥
+                                        strong=sitem.salesPrice
+                                    span.original-price
+                                        em ￥#{sitem.originalPrice}
+                            else if module === 'repast'
+                                .pro-info
+                                    h4.pro-info-title.orient2=sitem.aliasName
+                                    p.pro-info-explian
+                                        a.showDetail(href="javascript:;") 查看详情>
+                                .pro-price
+                                    span.price
+                                        em ￥
+                                        strong=(+sitem.currentPrice).toFixed(2)
+                                    span.original-price
+                                        em ￥#{(+sitem.priceShow || 0).toFixed(2)}
+                                .ticket-layer
+                                    a.close-ticket.font-icon.icon-iconfont-32pxchaxian(href='javascript:;')
+                                    h3.notice-tit=sitem.aliasName
+                                    .article-info.bgf
+                                        .article-main
+                                            != sitem.imgContent
+                                    .room-handle
+                                        - let _href = sitem.enabled === 'T' ? '/order/' + module + '/' + sitem.rateCode : 'javascript:;'
+                                        a.fr(href=_href , class=sitem.enabled === 'T' ? '' : 'gray_btn') 预订
+                                        p
+                                            | 价格
+                                            span.price
+                                                em ￥
+                                                strong=(+sitem.currentPrice).toFixed(2)
+                            else
+                                .pro-info
+                                    h4.pro-info-title.orient2=sitem.aliasName
+                                    //-p.pro-info-explian 有效期：#{item.expiryDate}
+                                .pro-price
+                                    span.price
+                                        em ￥
+                                        strong=(sitem.currentPrice || 0.00).toFixed(2)
+                                    span.original-price
+                                        em ￥#{(sitem.priceShow).toFixed(2)}
+                            .pro-price
+                                - let _href = '/order/' + module + '/' + sitem.rateCode + (module === 'ticket'? '?parkId='+ sitem.parkId: '' )
+                                a(href=sitem.enabled === 'T' ? _href : 'javascript:;' class=sitem.enabled === 'T' ? '' : 'gray_btn') 预订
+            else
+                li
+                    p.nothingData 暂无数据!
+    //if module === 'ticket' && data.parkComboInfos
+    //    .page-line
+    //    - var parkComboInfos = data.parkComboInfos;
+    //    h3.details-list-title 套票
+    //    ul.details-list
+    //        if  parkComboInfos.length > 0
+    //            each item,index in parkComboInfos
+    //                li
+    //                    .pro-info
+    //                        h4.pro-info-title.orient2=item.aliasName
+    //                        p.pro-info-explian
+    //                            a.showDetail(href="javascript:;")
+    //                                = module === 'ticket'? "预订须知>":"查看详情>"
+    //                    .pro-price
+    //                        span.price
+    //                            em ￥
+    //                            strong=(+item.currentPrice || 0.00).toFixed(2)
+    //                        span.original-price
+    //                            em ￥#{(+item.priceShow).toFixed(2)}
+    //                    .pro-price
+    //                        - let _href = '/order/combo/' + item.goodsCode +'?rateCode='+item.rateCode+'&&parkId='+item.parkId;
+    //                        a(href=item.enabled === 'T' ? _href : 'javascript:;', class=item.enabled === 'T' ? '' : 'gray_btn') 预订
+    //                    .ticket-layer
+    //                        a.close-ticket.font-icon.icon-iconfont-32pxchaxian(href='javascript:;')
+    //                        h3.notice-tit=item.aliasName
+    //                        .article-info.bgf
+    //                            .article-main
+    //                                != item.content
+    //                        .room-handle
+    //                            a.fr(href=item.enabled === 'T' ? _href : 'javascript:;', class=item.enabled === 'T' ? '' : 'gray_btn') 预订
+    //                            p
+    //                                | 价格
+    //                                span.price
+    //                                    em ￥
+    //                                    strong=(item.currentPrice || 0.00).toFixed(2)
+    //        else
+    //            li
+    //                p.nothingData 暂无数据!
+
+//- 详情切换
+mixin detailTab(data,module)
+    ul#details-tab.tours-details-tab.tab.clearfix.details-tab
+        li
+            a.active(href='javascript:;', data-div='book') 产品介绍
+        li
+            a(href='javascript:;', data-div='scenic')=module === 'combo' ? '费用说明' : '预订须知'
+    .details-tab-panel
+        #tab-panel.ticket-details-tabs(style='margin-left: 0%;')
+            #book.details-tab-item(style='height: auto;')
+                .tab-article!=data.content
+            #scenic.details-tab-item
+                .tab-article!= module === 'combo' ? data.feeDetail : data.orderNotice
+
+mixin defaultEmpty(str)
+    if(str)
+        =str
+    else
+        =""
+
+//- 详情扩展
+mixin detailExtent(data,module)
+    - var data1 = data[1]["data"]
+    - pics = [{img:"http://lotstest.sendinfo.com.cn/static//fileupload/20180830/201808301731378qdkya.jpg"},{img:"http://lotstest.sendinfo.com.cn/static//fileupload/20180830/201808301731378qdkya.jpg"},{img:"http://lotstest.sendinfo.com.cn/static//fileupload/20180830/201808301731378qdkya.jpg"},{img:"http://lotstest.sendinfo.com.cn/static//fileupload/20180830/201808301731378qdkya.jpg"}];
+    if module === 'ticket'
+        .extent-ticket-info
+            h3.extent-title 景点信息
+
+            ul.extent-ul
+                li
+                    label.lab-title 开放时间
+                    ul.order-item
+                        //li 夏令：全天早8：00-17：00，15：00后停止入场
+                        //li 冬至：全天早8：00-17：00，15：00后停止入场
+                        li 全天早#{data1.openTime}-#{data1.endTime}
+                li
+                    label.lab-title 优惠政策
+                    ul.order-item
+                        if data1.content
+                            li!=data1.content
+                        else
+                            li 暂无优惠政策
+                        //li 1米5以下儿童免票
+                        //li 60周岁老人免票
+                        //li 其它法定优待政策
+                li
+                    label.lab-title 交通指南
+                    ul.order-item
+                        if data1.trafficDesc
+                            li=data1.trafficDesc
+                        else
+                            li 暂无交通指南
+        .page-line
+        //.extent-Live
+        //    h3.extent-title 直播推荐
+        //        a.extent-more 更多 >
+        //    .extent-box
+        //        ul.extent-ul
+        //            each item in pics
+        //                li
+        //                    img(src=item.img)
+        //                    p.bottom-lable
+        //                        span 红旗村
+        //                        span
+        //                            i.icon.iconfont.icon-start
+        //                            |108
+        .page-line
+        .extent-nearby
+            h3.extent-title 附近景点
+                a.extent-more(href="/list/getInfoByType?latlng="+data1.latitudeLongitude) 更多 >
+            ul.extent-ul.js-nearby
+                // each item in pics
+                //     li
+                //         img(src=item.img)
+                //         p 长白山一日游
+        .page-line
+        //- 列表
+        #comment.comment(name="comment")
+            h3.extent-title 用户评论
+                p.comment-title-right
+                    span.comment-pf
+                        =data[2].data.avgScore
+                        | 分
+                    ||
+                    span.comment-num
+                        =data[2].data.count
+                        | 条评价
+            ul.extent-ul
+                each item in data[4].data.list.rows
+                    li
+                        .user-name=item.leaguerName
+                            each num in new Array(item.score)
+                                i.icon.iconfont.icon-start
+                            each num in new Array(5-item.score)
+                                i.icon.iconfont.icon-start.not-light
+                        .comment-content=item.content
+                        .comment-time=item.createTime
+            .more-comment
+                if data[4].data.list.total < 6
+                    a.more-comment-btn(href='javascript:;') 没有更多评论了
+                else
+                    a.more-comment-btn(href='/list/commentList?modelCode=' + productCode + '&commentLevel=0') 更多评论
+

@@ -1,0 +1,256 @@
+{
+  "main": {
+    "index": {
+      "allInfo": "/info/api/info/getAllInfo",
+      "listInfo": "/info/api/info/listInfo"
+    },
+    "sort": "/product/api/product/sortCondition",
+    "search": "/product/api/product/getLabel",
+    "detailimgs": "/product/api/product/getPicturesByModelCode",
+    "ratecode": {
+      "ruleBuy": "/product/api/product/ruleBuy",
+      "stockprices": "/product/api/product/stockprices"
+    },
+    "comment": {
+      "info": "/product/api/product/productCommentInfo",
+      "list": "/product/api/product/listComment",
+      "add": "/product/api/product/addComment"
+    },
+    "pay": {
+      "main":"/order/orderPay/toPay",
+      "alipay": "/pay/api/toAliPay/wapPay",
+      "result": "/pay/api/leaguer/manage/getPayOrder",
+      "getPayinfo":"/pay/api/leaguer/manage/getPayInfo"
+    },
+    "wechat": {
+      "Authorization": "https://open.weixin.qq.com/connect/oauth2/authorize",
+      "accessToken": "https://api.weixin.qq.com/sns/oauth2/access_token",
+      "toWxpay": "/pay/api/toWxpay/webPay",
+      "tozybwxpay": "/pay/api/toWxpay/zybWebPay",
+      "wxPayResult": "/pay/api/toWxpay/payResult"
+    }
+  },
+  "order": {
+    "saveOrder": "/order/api/leaguer/manage/order/saveOrderB2C"
+  },
+  "ticket": {
+    "list": {
+      "pagelist": "/product/api/product/parks"
+    },
+    "detail": {
+      "main": "/product/api/product/parkInfo",
+      "productItems": "/product/api/product/tickets",
+      "parkComboInfos":"/product/api/product/parkComboInfos",
+      "getInfoByType":"/product/api/product/getInfoByType"
+    },
+    "order": {
+      "main": "/product/api/product/webTicketInfo"
+    }
+  },
+  "hotel": {
+    "list": {
+      "pagelist": "/product/api/product/hotels"
+    },
+    "detail": {
+      "main": "/product/api/product/hotelInfo",
+      "productItems": "/product/api/product/rooms"
+    },
+    "order": {
+      "main": "/product/api/product/webHotelRoom"
+    }
+  },
+  "combo": {
+    "list": {
+      "pagelist": "/product/api/product/combos"
+    },
+    "detail": {
+      "main": "/product/api/product/getComboInfo"
+    },
+    "order": {
+      "main": "/product/api/product/getInterceptorComboInfo"
+    }
+  },
+  "zyx":{
+    "list":{
+      "pagelist":"/product/api/product/zyx"
+    },
+    "detail": {
+      "main": "/product/api/product/getZyxInfo"
+    },
+    "order": {
+      "main": "/product/api/product/getInterceptorZyxInfo"
+    }
+  },
+  "shop": {
+    "list": {
+      "pagelist": "/product/api/shop/shopMdses"
+    },
+    "detail": {
+      "main": "/product/api/shop/getShopMdse"
+    },
+    "order": {
+      "main": "/product/api/shop/getInterceptorShopMdse",
+      "listPoint": "/product/api/shop/listPoint",
+      "address": "/product/api/shop/nextArea",
+      "getPostage": "/product/api/shop/getPostage",
+      "getStock": "/product/api/shop/getStock"
+    }
+  },
+  "strategy": {
+    "list": {
+      "pagelist": "/info/api/info/listInfo"
+    },
+    "detail": {
+      "main": "/info/api/info/getInfo"
+    }
+  },
+  "qr": {
+    "detail": {
+      "main": "/info/api/info/listInfo"
+    },
+    "order": {
+      "main": "/product/api/product/webTicketInfo"
+    }
+  },
+  "repast": {
+    "list": {
+      "pagelist": "/product/api/product/eateryInfos"
+    },
+    "detail": {
+      "main": "/product/api/product/eateryInfo",
+      "productItems": "/product/api/product/repasts"
+    },
+    "order": {
+      "main": "/product/api/product/webRepastInfo"
+    }
+  },
+  "route":{
+    "list":{
+      "pagelist":"/product/api/product/routes"
+    },
+    "detail":{
+      "main":"/product/api/product/routeInfo",
+      "productItems":"/product/api/product/routePlans"
+    },
+    "order": {
+      "main": "/product/api/product/webRoutePlan"
+    }
+  },
+  "guide":{
+    "list":{
+      "pagelist":"/product/api/product/goodsGuides"
+    },
+    "detail":{
+      "main":"/product/api/product/goodsGuide"
+    },
+    "order": {
+      "main": "/product/api/product/goodsGuide"
+    }
+  },
+  "car": {
+    "list": {
+      "pagelist": "/product/api/product/cars"
+    },
+    "detail": {
+      "main": "/product/api/product/getCarInfo"
+    },
+    "order": {
+      "main": "/product/api/product/getInterceptorCarInfo"
+    }
+  },
+  "skiPark": {
+    "list": {
+      "pagelist": "/product/api/product/skiParks"
+    },
+    "detail": {
+      "main":"/product/api/product/skiParkInfo",
+      "productItems": "/product/api/product/skiTickets",
+      "ticketInfo": "/product/api/product/skiTicketInfo"
+    },
+    "order": {
+      "main": "/product/api/product/webSkiTicketInfo"
+    }
+  },
+  "member": {
+    "login": {
+      "main": "/leaguer/api/leaguer/leaguerLogin",
+      "sendCheckCode": "/leaguer/api/leaguer/sendCheckCode",
+      "checkPhoneCode": "/leaguer/api/leaguer/checkPhoneCode",
+      "leaguerMobileLogin": "/leaguer/api/leaguer/leaguerMobileLogin",
+      "resetPwd": "/leaguer/api/leaguer/resetPwd",
+      "fastregByAccount": "/leaguer/api/leaguer/fastregByAccount"
+    },
+    "register": "/leaguer/api/leaguer/leaguerRegister",
+    "logout": "/leaguer/api/leaguer/manage/leaguerLogout",
+    "info": "/leaguer/api/leaguer/manage/leaguerInfo",
+    "modify": "/leaguer/api/leaguer/manage/leaguerUpdate",
+    "leaguerFixPwd": "/leaguer/api/leaguer/manage/leaguerFixPwd",
+    "order": {
+      "pagelist": "/order/api/leaguer/manage/order/getMyOrder",
+      "detail": "/order/api/leaguer/manage/order/getOrderDetail",
+      "refund": "/order/api/leaguer/manage/order/refund",
+      "cancel": "/order/api/leaguer/manage/order/cancelOrder",
+      "refundOrder":"/order/api/leaguer/manage/order/getRefundOrder",
+      "refundDetail":"/order/api/leaguer/manage/order/getRefundDetail",
+      "receivedGoods": "/order/api/leaguer/manage/order/receivedGoods"
+
+    },
+    "integral":"/leaguer/api/point/manage/pointRecord"
+  },
+  "custom":{
+    "info":"/product/api/product/getCustomBaseInfo",
+    "order": "/product/api/product/saveCustomMade"
+  },
+  "complaint":{
+    "order":"/product/api/product/saveComplaintAdvice",
+    "online":"/product/api/product/saveComplaint"
+  },
+  "coupons":{
+    "list":{
+      "main":"/leaguer/api/coupon/couponPage",
+      "member":"/leaguer/api/coupon/manage/myCoupon",
+      "usableCoupons":"/leaguer/api/coupon/manage/listAbleCoupon"
+    },
+    "detail":{
+      "main":"/leaguer/api/coupon/manage/queryCouponInfo"
+    },
+    "getCoupons":{
+      "main":"/leaguer/api/coupon/manage/receiveCoupon"
+    }
+  },
+  "sencondsKill":{
+    "list":{
+      "main":"/leaguer/api/secondsKill/secondsKillPage"
+    },
+    "order":{
+      "main":"/leaguer/api/secondsKill/getSecondsKill",
+      "getStock":"/leaguer/api/secondsKill/getSKStockAndPrice"
+    }
+  },
+  "groupBuy":{
+    "list":{
+      "main":"/order/api/groupBuy/manage/activityList"
+    },
+    "order":{
+      "main":"/order/api/groupBuy/manage/getActivityDetail",
+      "save":"/order/api/groupBuy/save"
+    },
+    "detail":{
+      "main":"/order/api/groupBuy/manage/getGroupBuyDetailPage",
+      "orderList":"/order/api/groupBuy/manage/getGroupOrderIngList"
+    }
+  },
+  "navigation":{
+    "list":{
+      "main":"/info/api/info/getMapguideInfo"
+    }
+  },
+  "travelAgency":{
+    "list":{
+      "pagelist":"/info/travelAgency/api/listTravelAgency"
+    },
+    "detail":{
+      "main":"/info/travelAgency/api/getTravelAgencyInfo"
+    }
+  }
+}

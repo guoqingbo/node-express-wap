@@ -1,0 +1,117 @@
+.member-header {
+    height: 8.5rem;
+    background: url("../images/member/header.jpg") no-repeat;
+    background-size: cover;
+}
+
+.user-name {
+    font-size: 0.8rem;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.header-explian {
+    font-size: 0.4rem;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.user-face {
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    margin: 0.5rem auto 0;
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    line-height: 3rem;
+    color: #333;
+}
+
+.member-tab li {
+    width: 25%;
+    position: relative;
+}
+
+.member-tab li a i {
+    display: block;
+    margin: 0 auto 0.25rem;
+    font-size: 0.9rem;
+}
+
+.dingdan-pay {
+    color: #3c9;
+}
+
+.dingdan-unpay {
+    color: #f66;
+}
+
+.member-tab li a i.dingdan-complent {
+    color: #3c9;
+    font-size: 1.2rem;
+    margin-top: -0.25rem;
+    margin-bottom: 0;
+}
+
+.dingdan-refund {
+    color: #f66;
+}
+
+.member-tab li em {
+    position: absolute;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 100%;
+    background-color: #f66;
+    color: #fff;
+    text-align: center;
+    line-height: 0.75rem;
+    top: 0;
+    right: 1rem;
+    font-size: 0.6rem;
+}
+
+.member-list {
+    border-top: none;
+}
+
+.member-list li>a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.member-list .lab-title {
+    flex: 0 0 8%;
+}
+.member-list .lab-title i.font-icon {
+    margin-right: .15rem;
+}
+.vantages, .bonus {
+    font-size: 0.5rem;
+    color: #666;
+    margin-right: 0.5rem;
+}
+
+.vantages em, .bonus em {
+    font-size: 0.7rem;
+    margin-right: 0.25rem;
+}
+
+.bonus {
+    color: #f00;
+}
+
+.member-handle .btn i {
+    font-size: 0.6rem;
+}
+
+/*zgt 4.12*/
+.me-score {
+    color: #f00;
+}
+
+.me-score em {
+    padding-right: .5rem;
+}

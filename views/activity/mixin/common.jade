@@ -1,0 +1,93 @@
+mixin activityList(data,module)
+    //-限时抢购
+    if module === "sencondsKill"
+        each item in data["rows"]
+            li.limit-buy-item
+                a(href = "/activity/detail/"+module+"?activityCode="+item.activityCode)
+                    .limit-buy-img
+                        img.img(src=item.wapPath?item.wapPath:"/images/demo/foods-list1.jpg",alt="图片")
+                    .limit-buy-content
+                        p.limit-buy-title= item.activityName
+                        p.row1
+                            label.price-now
+                                span.icon ¥ #{item.secondsKillPrice}
+                            if item.activityStatus == 1
+                                a.buy-now(href='/order/sencondsKill/' + item.activityCode) 马上抢
+                            else
+                                a.buy-now.bug-end(href="javascrit:;")=item.activityStatusText
+                        p.row2
+                            label.price-old ¥ #{item.orignalPrice}
+                            lable 仅剩#{item.totalNum}件
+                                if item.activityStatus == 1
+                                    span.rate-box
+                                        span.rate-num(style="width:#{(item.totalNum / item.oldTotalNum) * 100}%")
+                                else
+                                    span.rate-box.bug-end
+                                        span.rate-num.bug-end(style="width:100%")
+                    if item.activityStatus == 0
+                        .time-count(data-endtime=item.startTime)
+                    else if item.activityStatus == 1
+                        .time-count(data-endtime=item.endTime)
+                        //span.time 08
+                        //span.time :
+                        //span.time 10
+                        //span.time :
+                        //span.time 12
+                        //span.time :
+                        //span.time 12
+
+    //- 拼团活动
+    if module === "groupBuy"
+        each item in data["rows"]
+            li.collage-activity-item
+                a(href = "/activity/detail/"+module+"?businessType="+item.businessType+"&activityId=" +item.id)
+                    img.collage-item-img(src=item.linkMobileImg?item.linkMobileImg:"/images/demo/foods-list1.jpg",alt="图片")
+                    .collage-activity-bottom
+                        .collage-activity-content
+                            p.title=item.activityName
+                            p.num-box
+                                span.price ￥ #{item.collagePrice}
+                                span.collage-person-num
+                                    span.person-num #{item.groupNumber}人
+                                    |成团
+                                span.already-collage-num 已拼成#{item.groupedAmount}件
+                        .collage-btn-box
+                            //a.collage-btn(href = '/order/groupBuy/' + item.id +'?groupFlag=1') 我要拼团
+                            a.collage-btn(href = "/activity/detail/"+module+"?businessType="+item.businessType+"&activityId=" +item.id) 我要拼团
+                    .collage-item-tag= item.flag
+    //- 优惠券
+    if module === "coupons"
+        each item in data["rows"]
+            li.coupon-item
+                a(href="/coupon/detail?couponCode=#{item.couponCode}")
+                    if item.useFlag === "T"
+                        img.coupon-item-img(src="/images/discountActivity/couponBg1.png",alt="图片")
+                    else
+                        img.coupon-item-img(src="/images/discountActivity/couponBg2.png",alt="图片")
+                    p.coupon-use-area
+                        span 使用范围：
+                            if item.productFlag === '0'
+                                | 通用
+                            if item.productFlag === '1'
+                                | #{item.productValue}
+                            if item.productFlag === '2'
+                                | 指定产品
+                        span.coupon-expire(data-endtime=item.endTime)
+                            //|3天后过期
+                    .coupon-img-content
+                        .coupon-img-content-left
+                            p= item.couponName
+                            if item.fullcat
+                                p.coupon-use-condition 满#{item.fullcat}可用
+                            else
+                                p.coupon-use-condition 任意金额可用
+                        .coupon-img-content-right
+                            if item.couponType === '0'
+                                | ￥
+                                span.coupon-price= item.couponValue
+                            if item.couponType === '1'
+                                span.coupon-price= item.couponValue
+                                |折
+
+if method === "ajax"
+    +activityList(data[0].data,module)

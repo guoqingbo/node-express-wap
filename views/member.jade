@@ -1,0 +1,115 @@
+extends layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/member.css")
+block javascripts
+block content
+    include common/footer/footer
+
+    header.member-header
+        h3.user-name.c-333=data[0].data.realName
+        p.header-explian.c-666 welcome
+        a.user-face(href='javascript:;')
+            i.font-icon.icon-iconfont-geren
+        //-p.header-explian.me-score
+            em 等级 #{data.elevelCode}
+            label 积分： #{data.leaguerScore || 0}
+    section
+        ul.tab.clearfix.member-tab
+            li
+                a(href='/list/order?orderStatus=0')
+                    i.font-icon.icon-iconfont-daizhifu.dingdan-unpay
+                    | 待支付
+            li
+                a(href='/list/order?orderStatus=1')
+                    i.font-icon.icon-iconfont-yizhifu2.dingdan-pay
+                    | 已出票
+            li
+                a(href='/list/order?orderStatus=2')
+                    i.font-icon.icon-iconfont-gougou.dingdan-complent
+                    | 已完成
+            //-li
+                a(href='/list/order?refundStatus=3')
+                    i.font-icon.icon-iconfont-tuikuan.dingdan-refund
+                    | 退款
+            li
+                a(href='/list/refund?orderStatus=-1')
+                    i.font-icon.icon-iconfont-tuikuan.dingdan-refund
+                    | 退单
+    ul.order-list.member-list
+        li
+            a(href="/list/order")
+                label.lab-title
+                    i.font-icon.icon-iconfont-dingdan
+                span.content 全部订单
+                i.font-icon.fr.icon-iconfont-jiantou
+    .page-line
+    ul.order-list.member-list
+        li
+            a(href='/member/user')
+                label.lab-title
+                    i.font-icon.icon-iconfont-suo
+                span.content 账户中心
+                i.font-icon.fr.icon-iconfont-jiantou
+        li
+            a(href='/member/userCode')
+                label.lab-title
+                    i.font-icon.icon-iconfont-suo
+                span.content 会员凭证
+                i.font-icon.fr.icon-iconfont-jiantou
+    .page-line
+    ul.order-list.member-list
+        li
+            a(href='/coupons/member')
+                label.lab-title
+                    i.font-icon.icon-iconfont-hongbao
+                span.content 优惠劵
+                i.font-icon.fr.icon-iconfont-jiantou
+        li
+            a(href='tel:400-000-000')
+                label.lab-title
+                    i.font-icon.icon-italk
+                span.content 客服
+                i.font-icon.fr.icon-iconfont-jiantou
+    //-.page-line
+    //-ul.order-list.member-list
+        li
+            a(href='/list/integral')
+                label.lab-title(for='')
+                    i.font-icon.icon-iconfont-indexjifen
+                span.content 我的积分
+                i.font-icon.fr.icon-iconfont-jiantou
+    .page-line
+
+    ul.order-list.member-list
+        li
+            a#loginOut(href='javascript:;')
+                label.lab-title
+                    i.font-icon.icon-iconfont-tuichu
+                span.content 退出登录
+
+    +footer
+    script.
+        $(function () {
+            $('#loginOut').click(function () {
+                // var confirmDel = confirm('确认要退出登录');
+                var confirmLogout = new TipLayer({
+                    message: '确认要退出登录',
+                    confirmType: 'confirm',
+                    confirmCallBack: function () {
+                        $.post('/logOut')
+                            .success(function (res) {
+                                new ErrLayer({
+                                    message: res[0].status === 200 ? res[0].message : '退出失败',
+                                    closeCallBack: function () {
+                                        window.location.href = '/login'
+                                    }
+                                });
+                            })
+                            .error(function (err) {
+                                window.location.href = '/error';
+                            });
+                    }
+                })
+            })
+        })

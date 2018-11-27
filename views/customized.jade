@@ -1,0 +1,218 @@
+extends layout
+
+block stylesheets
+  link(rel="stylesheet", href="/stylesheets/calendar.css")
+  link(rel="stylesheet", href="/stylesheets/detail.css")
+  link(rel="stylesheet", href="/stylesheets/order.css")
+  link(rel="stylesheet", href="/javascripts/common/cityPicker/cityPicker.css")
+block javascripts
+  script(type='text/javascript', src='/javascripts/jquery.calendar.js')
+  script(type='text/javascript', src='/javascripts/common/cityPicker/cityPicker.js')
+  script(type='text/javascript', src='/javascripts/pageItem.js')
+  script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+  script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+  script(type='text/javascript', src='/lib/validate/additional-methods.js')
+block content
+  include common/index
+  a.back-bar(href='javascript:;' data-url='/')
+  div.cuz-bg
+  form(action="/", method="post")#cuz-form
+      .cuz-top
+      ul.order-list.myorder-list.cuz-list
+        li
+          .order-md
+            input#setout(type='text', value='', name='startPlace', placeholder='出发地')
+          i.order-md-ico.ico-img.img-jt
+          .order-md
+            input(type='text', value='', name='destPlace', placeholder='目的地')
+        li#cuzCalendar
+          input#startdate(type='hidden', name='travelStartTime', value= )
+          input#enddate(type='hidden', name='travelEndTime', value= )
+          .order-md
+            //input(type='text', value='2018-03-12', placeholder='出发日期')
+            +formatDate(new Date())
+          i.order-md-ico.ico-img 1天
+          .order-md
+            //input(type='text', value='2018-03-17', placeholder='返回日期')
+            +formatDate(new Date())
+        li
+          input#adult(type='hidden', name='adultAmount', value='1')
+          input#children(type='hidden', name='childAmount', value='0')
+          .order-md#people
+            em#cr 1
+            | 成人
+            em#et 0
+            | 儿童
+          i.order-md-ico.ico-img
+          #clmin-oper.order-md
+            span 收起选项
+            i.font-icon.icon-iconfont-jiantou.on
+      ul.order-list.myorder-list.cuz-list.cuz-lmin
+        li
+          .order-md 人均预算
+          i.order-md-ico.ico-img
+          .order-md
+            span
+            select(name='budget')
+                each tm in JSON.parse(data[0].message)
+                    option(value=tm.value)=tm.value
+            i.font-icon.icon-iconfont-jiantou
+        li
+          .order-md 住宿标准
+          i.order-md-ico.ico-img
+          .order-md
+            span
+            select(name='lodge', id='')
+              each tm in JSON.parse(data[0].lodge)
+                option(value=tm.value)=tm.value
+            i.font-icon.icon-iconfont-jiantou
+        li
+          .order-md 交通方式
+          i.order-md-ico.ico-img
+          .order-md
+            select(name='traffic', id='')
+                each tm in JSON.parse(data[0].traffic)
+                    option(value=tm.value)=tm.value
+            i.font-icon.icon-iconfont-jiantou
+        li
+          .order-md 用餐标准
+          i.order-md-ico.ico-img
+          .order-md
+            select(name='meals', id='')
+                each tm in JSON.parse(data[0].meals)
+                    option(value=tm.value)=tm.value
+            i.font-icon.icon-iconfont-jiantou
+      ul#user.order-list.myorder-list.cuz-list
+        li
+          label.lab-title 联系人姓名
+          .order-item
+            input.order-text(type='text', value='', name='name', placeholder='请填联系人姓名')
+            // label请删除，此为模拟表单验证
+            // label.error 姓名输入有误
+        li.borb
+          label.lab-title(for='') 联系人电话
+          .order-item
+            input.order-text(type='tel', value='', name='phone', placeholder='请填写联系人电话')
+            // i.font-icon.fr.icon-iconfont-xie
+      div.order-footer.cuz-footer
+        .order-total.float-layer
+          a.btn-order.background-base.cuz-btn(href='javascript:;')#cuz-sub 提交订制需求
+  .layer-thenumber
+      p
+          label 成人
+          input.number2#the_adult(value='1')
+      p
+          label 儿童
+          input.number3#the_children(value='0')
+      div.fotbtn
+          input#lay_close(value='取消', type='button')
+          input.confirm#lay_confirm(value='确认', type='button')
+  .mask#mask
+  #calendar
+  script(type='text/javascript').
+      //私人订制
+      $(function () {
+          $('#startdate,#enddate').val(new Date().Format());
+          $("#calendar").calendar({
+              multipleMonth: 4,
+              multipleSelect: true,
+              cToday: true,
+              click: function (dates) {
+                  console.log(dates);
+                  var beginDate = dates[0],
+                      numDays = dates.length,
+                      ns = dates.length - 1,
+                      endDate = dates[ns];
+                  $('#cuzCalendar .order-md').eq(0).text(beginDate);
+                  $('#cuzCalendar .order-md').eq(1).text(numDays === 1 ? beginDate : endDate);
+                  $('#startdate').val(beginDate);
+                  $('#enddate').val(numDays === 1 ? beginDate : endDate);
+                  $('#cuzCalendar i').html(numDays + '天');
+                  $("#calendar").hide();
+                  $('body').find('.close-bar').remove();//去除日历上的返回按钮
+              }
+          });
+          $('#cuzCalendar').on('click', function () {
+              $("#calendar").show();
+              $('body').append('<a href="javascript:;" class="close-bar"></a>'); //加上日历上的返回按钮
+              $('body').find('.close-bar').on('click', function () { //绑定日历返回按钮事件
+                  $("#calendar").hide();
+                  $('body').find('.close-bar').remove();//去除日历上的返回按钮
+              });
+          });
+          $(".number2").numSpinner({
+              min: 1, onChange: function (evl, value) {
+              }
+          });
+          $(".number3").numSpinner({
+              min: 0, onChange: function (evl, value) {
+              }
+          });
+          //成人儿童
+          $('#people').on('click', function () {
+              $('.layer-thenumber,.mask').show();
+          });
+          $('#lay_close').click(function () {
+              $('#the_adult').val($('#cr').html());
+              $('#the_children').val($('#et').html());
+              $('.layer-thenumber,.mask').hide();
+          });
+          $('#lay_confirm').click(function () {
+              $('#cr').html($('#the_adult').val());
+              $('#et').html($('#the_children').val());
+              $('#adult').val($('#the_adult').val());
+              $('#children').val($('#the_children').val());
+              $('.layer-thenumber,.mask').hide();
+          });
+
+
+          $("#setout").CityPicker();
+
+
+          $('#clmin-oper').click(function () {
+              $('.cuz-lmin').toggle();
+              $(this).find('i').toggleClass('on');
+              var dht = $(this).find('span').html() == '更多选项' ? '收起选项' : '更多选项';
+              $(this).find('span').html(dht);
+          });
+
+          var validator = $('#cuz-form').validate({
+              rules: {
+                  startPlace: {
+                      required: true
+                  },
+                  destPlace: {
+                      required: true,
+                      han: true
+                  },
+                  name: {
+                      required: true,
+                      maxlength: 8,
+                      han: true
+                  },
+                  phone: {
+                      isMobile: true,
+                      required: true
+                  }
+              }
+          });
+          $('#cuz-sub').click(function () {
+              if (validator.form()) {
+                  $.get('/customizeds?' + $('#cuz-form').serialize())
+                      .success(function (data) {
+                          console.log(data)
+                          if (data[0].status === 200) {
+                              alert('提交成功');
+                              window.location.href = '/';
+                          } else if (data[0].status === 402) {
+                              alert(data[0].message);
+                          }
+                      })
+                      .error(function (err) {
+                          window.location.href = '/error';
+                      });
+              }
+          });
+      });
+
+

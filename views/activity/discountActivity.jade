@@ -1,0 +1,49 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/activity/discountActivity.css")
+block javascripts
+    script(type='text/javascript', src='/javascripts/activity/discountActivity.js')
+block content
+    include mixin/common
+    .discount-header
+        img(src=data[0].data["discountActivityHeader"][0]["mig"],alt="图片")
+    //-限时抢购
+    .limit-buy
+        .section-title
+            img(src="/images/discountActivity/sectionTitle1.png")
+            a.more(href="/activity/sencondsKill")
+                i.icon.iconfont.icon-gengduo1
+        ul.limit-buy-list
+            if data[1].data["rows"].length > 0
+                +activityList(data[1].data,"sencondsKill")
+            else
+                li.collage-activity-item
+                    p.item-empty 暂无活动
+    .line
+    //- 拼团活动
+    .collage-activity
+        .section-title
+            img(src="/images/discountActivity/sectionTitle2.png")
+            a.more(href="/activity/groupBuy")
+                i.icon.iconfont.icon-gengduo1
+        ul.collage-activity-list
+            if data[2].data["rows"].length > 0
+                +activityList(data[2].data,"groupBuy")
+            else
+                li
+                    p.item-empty 暂无活动
+
+    .line
+    //- 优惠券
+    .coupon
+        .section-title
+            img(src="/images/discountActivity/sectionTitle3.png")
+            //a.more(href="/coupons/list")
+            a.more(href="/activity/coupons")
+                i.icon.iconfont.icon-gengduo1
+        ul.coupon-list
+            if data[3].data["rows"].length > 0
+                +activityList(data[3].data,"coupons")
+            else
+                li
+                    p.item-empty 暂无活动

@@ -1,0 +1,32 @@
+extends ../layout
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/cityIntro/cityNavigation.css")
+block javascripts
+    script(type='text/javascript', src='/javascripts/cityIntro/cityNavigation.js')
+block content
+    a.back-bar(href='javascript:window.history.back(-1);')
+    .search
+        input.search-input(placeholder="安图")
+        i.icon.iconfont.icon-sousuo2.js-search
+    .search-lable-box
+        .search-lately
+            .search-title 最近搜索
+            ul.search-lable-list
+                //li.search-lable-item 安图
+                //li.search-lable-item 安图
+        .search-hot-city
+            .search-title 热门搜索
+            ul.search-lable-list
+                li.search-lable-item.active 安图
+                li.search-lable-item 安图
+                li.search-lable-item 长白山
+        .search-cit-server
+            .search-title 服务城市
+            ul.search-lable-list
+                li.search-lable-item 安图
+                li.search-lable-item 赤峰
+                li.search-lable-item 安图
+                li.search-lable-item 安图
+
+
+

@@ -1,0 +1,280 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/lib/swiper/swiper-3.4.1.min.css")
+    link(rel="stylesheet", href="/stylesheets/main/index2.css")
+
+block javascripts
+    script(type='text/javascript', src='/lib/swiper/swiper-3.4.1.jquery.min.js')
+    script(type='text/javascript', src='http://api.map.baidu.com/api?ak=DE62ca2a357ccffe40770cf87cb63195&v=2.0')
+    script(type='text/javascript', src='/javascripts/main/index2.js')
+block content
+    include ../common/footer/footer2
+    //-顶部搜索
+    .search
+        .search-box-con
+            .search-option
+                .selected-show
+                    span.seleted-name 门票
+                    i.icon.iconfont.icon-arrow
+                    span.vertical-line |
+
+                ul.select-ul
+                    li 门票
+                    li 酒店
+                    li 餐饮
+                    li 商品
+                    li 自由行
+                    li 跟团游
+                    li 交通
+                    //li 乡村游
+            .search-box
+                input.search-btn(type='text',placeholder='长白山门票')
+                span.search-go#searchBtn
+                    i.icon.iconfont.icon-sousuo2
+
+    //- 头部轮播
+    .hs-banner
+        .bg-banner
+            #banner_swiper.swiper-container
+                .swiper-wrapper
+                    each item in data[0].data['head_carousel']
+                        .swiper-slide
+                            a(href=item.url)
+                                img(src=item.mig)
+                .swiper-pagination
+    //-头条资讯
+    .top-announcement
+        img.icon-announcement(src='images/index/toutiaozixun.png', alt='...')
+        #shuffling_ann.swiper-container
+            .swiper-wrapper
+                each item in data[0].data['middle_carousel']
+                    .swiper-slide
+                        a(href=item.url) #{item.title}
+    .line
+    //-菜单导航上
+    .hs-nav
+        ul.clearfix
+            li
+                a(href='/list/ticket')
+                    img(src='images/index/nav1.png', alt='...')
+                    p 门票
+            li
+                a(href='/list/hotel')
+                    img(src='images/index/nav2.png', alt='...')
+                    p 酒店
+            li
+                a(href='/list/repast')
+                    img(src='images/index/nav3.png', alt='...')
+                    p 餐饮
+            li
+                a(href='/list/shop')
+                    img(src='images/index/nav4.png', alt='...')
+                    p 商品
+            li
+                a(href='/list/combo')
+                    img(src="/images/index/nav5.png", alt="")
+                    p 自由行
+            li
+                a(href='list/route')
+                    img(src='images/index/nav6.png', alt='...')
+                    p 跟团游
+            li
+                a(href='list/car')
+                    img(src='images/index/nav7.png', alt='...')
+                    p 交通
+            li
+                a(href='/xcy')
+                    img(src='images/index/nav8.png', alt='...')
+                    p 乡村游
+    .line
+    //-菜单导航下
+    .hs-nav-bottom
+        ul
+            li
+                a(href='list/guide')
+                    img(src='images/index/nav9.png', alt='...')
+                    p 导游
+            li
+                a(href='customized')
+                    img(src='images/index/nav10.png', alt='...')
+                    p 私人定制
+            li
+                a(href='/list/strategy')
+                    img(src='images/index/nav11.png', alt='...')
+                    p 游记攻略
+            li
+                a(href='/complaint/complaintList')
+                    img(src='images/index/nav12.png', alt='...')
+                    p 投诉建议
+    .line
+    //限时抢购
+    .limit-active
+        .section-tittle2
+            .tittle-left
+                img(src="images/index/lineIcon.png")
+                span 限时抢购
+            //a(href='/more/limitActive').tittle-right 更多
+            a(href='/activity/discountActivity').tittle-right 更多
+                i.icon.iconfont.icon-right
+            .tittle-center.count-time(endTime = data[0].data["limitActive"][0]['end_time'])
+                //span.day 2
+                //span 天
+                //span.hour 23
+                //span :
+                //span.mimute 58
+                //span :
+                //span.second 12
+        .limit-active-box
+            ul.limit-active-ul
+                // each item in data[0].data["limitActive"]
+                - let item = data[0].data["limitActive"][0]
+                li.limit-active-intro
+                    a(href='javascript:;')
+                        .limit-active-left
+                            img(src=item.img, alt="")
+                        .limit-active-right
+                            p.limit-active-title #{item.content}
+                            //p.limit-active-titleCon #{item.content}
+                            p.limit-active-msg
+                                span.limit-active-msg-money
+                                    label
+                                        label ¥
+                                        | #{item.price_now}
+                                    label.limit-active-old-money ¥ #{item.price_old}
+                                    a.button.limit-buy-now(href=item.buyUrl) 立即抢购
+
+
+
+    .line
+    //-精品特卖
+    .fine-sale
+        .section-tittle2
+            .tittle-left
+                img(src="images/index/lineIcon.png")
+                span 精品特卖
+            //.tittle-right 更多
+            //    i.icon.iconfont.icon-right
+        .fine-sale-intro
+            ul
+                each jptm in data[0].data["fineSale"]
+                    li
+                        a.urladdre(href=jptm.url)
+                            img(src=jptm.img,alt="")
+                        p.fine-sale-content #{jptm.content}
+                        p
+                            span
+                                label.fine-sale-price ¥
+                                    i #{jptm.price_now}
+                                label.fine-sale-old-price ¥ #{jptm.price_old}
+                        if jptm.type != ""
+                            span.fine-sale-type #{jptm.type}
+
+
+    .line
+    //- 热门地区推荐
+     .hot-district
+        h4.section-tittle
+            span 热门地区推荐
+        ul
+            each jptm in data[0].data["right_recommend"]
+                li
+                    a(href=jptm.url)
+                        img(src=jptm.mig,alt=jptm.name)
+                        span.city-name #{jptm.biaoqian}
+
+    //-广告位
+    .produ-box
+        //-img(src=data[0].data['wap-tpzs'].data[0].mig,alt=data[0].data['wap-tpzs'].data[0].name)
+        #produ-box.swiper-container.details-slider
+            ul.swiper-wrapper
+                each produtImg in data[0].data['middle_menu']
+                    if produtImg.mig != ""
+                        li.swiper-slide
+                            img(src=produtImg.mig, alt=produtImg.name)
+    .line
+    //- 热门推荐
+    .prod-recoment
+        .section-tittle2
+            .tittle-left
+                img(src="images/index/lineIcon.png")
+                span 热门推荐
+            a(href='/list/ticket').tittle-right.recoment-more 更多
+                i.icon.iconfont.icon-right
+        ul.prod-recoment-tab
+            li
+                span.on 门票
+            li
+                span 酒店
+            li
+                span 美食
+            li
+                span 特产
+        .prod-recoment-content
+            #prod-recoment_swiper.swiper-container3
+                .swiper-wrapper.prod-recoment-img-list
+                    ul.swiper-slide
+                        each item in data[0].data['ticket']
+                            li
+                                a.urladdre(href=item.url)
+                                    .prod-recoment-left
+                                        img(src=item.mig, alt="")
+                                    .prod-recoment-right
+                                        p.prod-recoment-title #{item.title}
+                                        //p.prod-recoment-titleCon #{item.content}
+                                        p.prod-recoment-msg
+                                            span.prod-recoment-msg-money
+                                                label
+                                                    label ¥
+                                                    | #{item.price}
+                                                label.prod-recoment-old-money ¥ #{item.beforePrice}
+                    ul.swiper-slide.clearfix
+                        each item in data[0].data['hotel']
+                            li
+                                a.urladdre(href=item.url)
+                                    .prod-recoment-left
+                                        img(src=item.mig, alt="")
+                                    .prod-recoment-right
+                                        p.prod-recoment-title #{item.title}
+                                        //p.prod-recoment-titleCon #{item.content}
+                                        p.prod-recoment-msg
+                                            span.prod-recoment-msg-money
+                                                label
+                                                    label ¥
+                                                    | #{item.price}
+                                                label.prod-recoment-old-money ¥ #{item.beforePrice}
+                    ul.swiper-slide.clearfix
+                        if data[0].data['food']
+                            each item in data[0].data['food']
+                                li
+                                    a.urladdre(href=item.url)
+                                        .prod-recoment-left
+                                            img(src=item.mig, alt="")
+                                        .prod-recoment-right
+                                            p.prod-recoment-title #{item.title}
+                                            //p.prod-recoment-titleCon #{item.content}
+                                            p.prod-recoment-msg
+                                                span.prod-recoment-msg-money
+                                                    label
+                                                        label ¥
+                                                        | #{item.price}
+                                                    label.prod-recoment-old-money ¥ #{item.beforePrice}
+
+                    ul.swiper-slide.clearfix
+                        if data[0].data['product']
+                            each item in data[0].data['product']
+                                li
+                                    a.urladdre(href=item.url)
+                                        .prod-recoment-left
+                                            img(src=item.mig, alt="")
+                                        .prod-recoment-right
+                                            p.prod-recoment-title #{item.title}
+                                            //p.prod-recoment-titleCon #{item.content}
+                                            p.prod-recoment-msg
+                                                span.prod-recoment-msg-money
+                                                    label
+                                                        label ¥
+                                                        | #{item.price}
+                                                    label.prod-recoment-old-money ¥ #{item.beforePrice}
+
+    +footer

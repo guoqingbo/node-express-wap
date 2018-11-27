@@ -1,0 +1,90 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/calendar.css")
+    link(rel="stylesheet", href="/lib/swiper/swiper-3.4.1.min.css")
+    link(rel="stylesheet", href="/stylesheets/detail.css")
+    link(rel='stylesheet', href='/stylesheets/share.css')
+
+block javascripts
+    if data.length > 1
+        script.
+            var goodsCode = '#{data[1].data.goodsCode}' || '';
+            var rateCode = '#{data[1].data.rateCode}' || ''
+    script.
+        if ('#{module}' === 'hotel') {
+            var beginDate = '#{beginDate}', endDate = '#{endDate}'
+        }
+    script(type='text/javascript', src='/javascripts/jquery.calendar.js')
+    script(type='text/javascript', src='/lib/swiper/swiper-3.4.1.jquery.min.js')
+    //script(type='text/javascript', src='/javascripts/jquery.flexslider-min.js')
+    script(type='text/javascript', src='/javascripts/detail.js')
+    script(type='text/javascript', src="/javascripts/share.js")
+block content
+    include ../common/footer/footer
+    include common
+
+    if module === 'shop'
+        include ../order/orderBtn
+    if module !== 'qr'
+        a.back-bar(href='javascript:window.history.back(-1);')
+    if module === 'strategy' || module === 'qr'
+        +detailShow(data[0].data,module)
+    else
+        .block_home_slider.details-slider
+            #home_swiper.swiper-container.detail-container
+                ul.swiper-wrapper
+                    each item in data[0].data
+                        li.swiper-slide
+                            img(src='#{item.wapUrl}')
+                .swiper-pagination
+        if module === 'strategy'
+            .raiders-details
+                .raiders-info
+                    h3=data.name
+                    p
+                        span
+                            i.font-icon.icon-clock
+                            | #{data[0].data.pubDate}
+                        span.fr
+                            i.font-icon.icon-views
+                            | #{data[0].data.browseNum}
+                .raiders-content!=data[0].data.content
+        else
+            +information(data,module)
+            unless  module === 'ticket'
+                .page-line
+            if module === 'guide'
+                +detailShow(data[1].data,module)
+            else
+                -var data3=data[3]?data[3]:""
+                +detailList(data[1].data,data3,module)
+
+    .page-line
+    if module === 'shop' || module === 'combo' || module === 'car' || module === 'guide'
+        include ../order/orderBtn
+        +orderBtn({
+            id: data[1].data.modelCode,
+            rateCode: data[1].data.rateCode,
+            isAble: data[1].data.isAble
+        },module,'detail')
+    else if (module === 'qr')
+        .go-member
+            a(href='/member')
+                i.icon-imember
+    else if (module === 'ticket')
+        +detailExtent(data,module)
+    else
+        +footer
+    .mask#mask
+    .wxShare
+        .img
+        p 点击右上角将它分享到朋友圈或指定的朋友
+    .tips
+        p
+        a(href="javascript:;").queding 确定
+    #calendar
+    //.socialShare#socialShare
+
+
+

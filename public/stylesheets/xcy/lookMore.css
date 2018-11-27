@@ -1,0 +1,67 @@
+/*公共样式*/
+.video-box,.img-box{
+    position: relative;
+    box-sizing: border-box;
+    /*width: 100%;*/
+    padding: 0 .5rem;
+}
+.video-box video{
+    border-radius: 0.2rem;
+    object-fit:fill;
+    width: 100%;
+    height: 6rem;
+    background-color: #000;
+}
+.video-box.play .play-btn{
+    display: none;
+}
+.play-box{
+    /*width: 100%;*/
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.play-btn{
+    display: inline-block;
+    background-color: rgba(0,0,0,0.3);
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    border-radius: 1rem;
+    /*display: none;*/
+}
+.play-btn i{
+    vertical-align: middle;
+    color: #fff;
+}
+.img-box img{
+    border-radius: 0.2rem;
+    width: 100%;
+    height: 6rem;
+}
+/*查看更多列表*/
+.look-more{
+    background-color: #fff;
+    overflow: hidden;
+}
+.look-more .title-name{
+    height: 1.8rem;
+    line-height: 1.8rem;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+}
+
+.look-more .bottom{
+    height: 2rem;
+    line-height: 2rem;
+    margin: 0 0.5rem;
+    color: #aaa;
+    border-bottom: 1px solid #ccc;
+}
+.look-more .bottom i{
+    /*vertical-align: middle;*/
+    margin-right: 0.3rem;
+}

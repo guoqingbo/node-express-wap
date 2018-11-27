@@ -1,0 +1,54 @@
+html,body{
+    height: 100%;
+    background-color: #fff;
+}
+.complaint-header{
+    height:8.01rem;
+    position: relative;
+}
+.complaint-header img{
+    width: 100%;
+    height: 100%;
+}
+.complaint-header .tip{
+    position: absolute;
+    top: 3.5rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+}
+.complaint-header .tip p:nth-child(2){
+    font-size: 0.8rem;
+    font-weight: lighter;
+    margin-top: 0.2rem;
+}
+.complaint-ul{
+    position: relative;
+    width: 13.95rem;
+    margin:0 auto;
+    margin-top: -0.6rem;
+}
+.complaint-ul img{
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+}
+.complaint-ul li{
+    position: relative;
+    margin-bottom: 0.6rem;
+}
+.complaint-ul li a p{
+    position: absolute;
+    top: 0.5rem;
+    left: 1.5rem;
+    color: #fff;
+    font-size: 0.7rem;
+}
+.complaint-bottom{
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    color: #666;
+}

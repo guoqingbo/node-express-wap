@@ -1,0 +1,259 @@
+/*按钮*/
+.btn-com{
+    display: inline-block;
+    background-color: #e3495a;
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    color: #fff;
+}
+/*标题*/
+.section-tittle2{
+    background-color: #fff;
+}
+.tittle-left{
+    text-align: center;
+    font-size: 0.8rem;
+    height: 2rem;
+    line-height: 2rem;
+}
+/*查看更多*/
+.look-more{
+    text-align: center;
+    display: block;
+    color: #000;
+    height: 1rem;
+    background-color: #fff;
+}
+
+/*轮播图*/
+.hs-banner .swiper-slide{
+    height: 9rem;
+}
+.hs-banner .swiper-slide img{
+    width: 100%;
+    height: 100%;
+}
+
+/*限时抢购*/
+.limit-active{
+    overflow: hidden;
+    background-color: #fff;
+    /*padding-bottom: 1rem;*/
+}
+.limit-active .tittle-center>span{
+    text-align: center;
+    display: inline-block;
+    padding: 0.1rem;
+    vertical-align: middle;
+    background-color: #ff7a51;
+    color: #fff;
+    margin:0 .2rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 0.1rem;
+}
+.limit-active .tittle-center>span:nth-child(2n){
+    background-color: #fff;
+    color: #ff7a51;
+    margin: 0;
+    display: inline;
+}
+.limit-active-box{
+    padding: 0 0.7rem;
+}
+.limit-active-intro{
+    overflow: hidden;
+    position: relative;
+   margin-bottom: 0.3rem;
+
+}
+.limit-active-left{
+    float: left;
+}
+.limit-active-left img{
+    width: 5.5rem;
+    height: 4rem;
+}
+
+.limit-active-right{
+    float: right;
+    width: 8.5rem;
+}
+.limit-active-right .limit-active-title {
+    /*padding-right: 0.6rem;*/
+    /*color:#ff7a51;*/
+    font-size: 0.6rem;
+    /*margin-bottom: 5px;*/
+    /*margin-top: 0.5rem;*/
+}
+.limit-active-right .limit-active-msg {
+    padding-right: 0.6rem;
+    line-height: 1rem;
+    vertical-align: middle;
+    margin-top: 0.5rem;
+}
+.limit-active-msg-label label {
+    border: 1px solid #ff4a26;
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+.limit-active-msg-money {
+    color: #999;
+    font-size: 12px;
+    float: left;
+}
+.limit-active-msg-right {
+    float: right;
+}
+.limit-active-msg-money > label {
+    color: #de465e;
+    font-size: .65rem;
+    font-weight: bold;
+}
+.limit-active .limit-active-old-money{
+    display: block;
+    color: #888;
+    font-size: 0.5rem;
+    text-decoration: line-through;
+}
+.limit-active-msg > span .limit-active-old-money {
+    margin-left: 1rem;
+    font-size: .45rem;
+    text-decoration: line-through;
+    color: #999;
+    font-weight: initial;
+}
+.limit-active-msg-right .top{
+    overflow: hidden;
+}
+.limit-buy-now{
+    box-sizing: border-box;
+    text-align: center;
+    /*display: block;*/
+    border-radius: 0.1rem;
+    color: #fff;
+    border: none;
+    background-color: #ff516c;
+     float: right;
+    padding: 0.1rem 0.3rem;
+    width: 2.5rem;
+}
+.limit-active-msg-right .left{
+    color:#888;
+}
+.limit-active .time-count{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.limit-active .time-count span{
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 0.1rem;
+    display: inline-block;
+}
+.left-rate{
+    display: inline-block;
+    height: 4px;
+    background-color: #aaa;
+    /* float: right; */
+    width: 2.5rem;
+    margin-left: 0.5rem;
+}
+.left-rate>span{
+    display: block;
+    width: 20%;
+    height: 4px;
+    background-color: #f00;
+}
+
+/*拼团活动*/
+.collage-item{
+    overflow: hidden;
+    padding-bottom: 0.5rem;
+    background-color: #fff;
+}
+.collage-item .content{
+    overflow: hidden;
+    padding: 0 0.5rem;
+}
+.collage-item img{
+    width: 100%;
+    height: 8.5rem;
+}
+.collage-item .content-top
+{
+    font-size: 0.6rem;
+    /* height: 1.5rem; */
+    /* line-height: 1.5rem; */
+    padding: 0.5rem 0;
+}
+.collage-item .content-left{
+    font-size: 0.8rem;
+    color: #eb4141;
+    /*padding-left: 0.5rem;*/
+    float: left;
+}
+.collage-item .content-right{
+    float: right;
+}
+.collage-item .content-left span:nth-child(2)
+{
+    font-size: 0.5rem;
+    color: #000;
+    padding-left: 0.5rem;
+}
+.collage-item .content-left span:nth-child(3)
+{
+    font-size: 0.5rem;
+    color: #888;
+    padding-left: 0.5rem;
+}
+.collage-item  .collage-btn{
+    display: inline-block;
+    background-color: #e3495a;
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    color: #fff;
+}
+
+/*优惠券*/
+.coupon  .coupon-top{
+    position: relative;
+    background-color: rgb(238, 236, 236);
+    border: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+}
+.coupon .name
+{
+    font-size: 0.7rem;
+    padding:0.3rem 0.5rem;
+}
+.coupon .condition
+{
+    padding:0 0.5rem;
+}
+.coupon .coupon-top .right{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #f00;
+    font-size: 0.8rem;
+    padding: 0.2rem 1rem;
+}
+.coupon .use-area,.coupon .cancel-time
+{
+    /*padding:  0 0.5rem;*/
+}
+.coupon-bottom{
+    overflow: hidden;
+    padding: 0.3rem 0.5rem;
+}
+.coupon-bottom .left{
+    float: left;
+}
+.coupon-bottom .right{
+    float: right;
+}

@@ -1,0 +1,49 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/activity/activityDetail.css")
+block javascripts
+    script(type='text/javascript', src='/javascripts/activity/activityDetail.js')
+block content
+    include ./mixin/detail
+    .activity-header
+        +header(data[0].data,module)
+     //团购拼单列表
+    .line
+    if module === "groupBuy"
+        if data[1].data
+            .group-person-box
+                .group-list-title
+                    i.icon.iconfont.icon-pintuan
+                    span.group-person-num #{data[0].data.groupingAmount}人
+                    span 正在拼团，可直接参与
+                ul.group-list
+                    if data[1].data.rows.length
+                        each item in data[1].data.rows
+                            li.group-list-item
+                                .group-img-box
+                                    img.group-img(src=item.linkMobileImg?item.linkMobileImg:"/images/discountActivity/person-none.png",alt="图片")
+                                .group-person-info
+                                    p.group-person-name=item.groupedOriginator
+                                    p.group-person-content
+                                        span.group-person-left 差#{(item.groupNumber-item.currentNumber)}人成团
+                                        span 剩余
+                                        span.time-count(data-endtime = item.activityEndTime)
+                                .group-btn-box
+                                    a.group-btn(href = '/order/groupBuy/'+ item.groupBuyActivityId + '?groupFlag=1&groupedId='+item.id) 拼团
+
+            .line
+    //-选项卡
+    .activity-tab
+       +tab(data[0].data,module)
+    //-按钮
+    .activity-btn-box
+        +btn(data[0].data,module)
+    //if data[0].data.end == "F"
+    //    a.buy-now(href='/order/sencondsKill/' + data[0].data.activityCode) 立即抢购
+    //else
+    //    a.buy-now.bug-end(href="javascrit:;") 已结束
+
+
+
+

@@ -1,0 +1,13 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/lib/dropload/dropload.css")
+    link(rel="stylesheet", href="/stylesheets/activity/discountActivity.css")
+block javascripts
+    script(type='text/javascript', src='/lib/dropload/dropload.min.js')
+    script(type='text/javascript', src='/javascripts/activity/discountActivity.js')
+block content
+    .drop-box(data-module = module)
+        ul.drop-box-list
+
+

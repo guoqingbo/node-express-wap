@@ -1,0 +1,313 @@
+/*公用样式*/
+.section-header{
+    height:1.9rem ;
+    line-height: 1.9rem;
+}
+.section-header img{
+    vertical-align: middle;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.5rem;
+}
+.section-header span{
+    /*font-family: Fantasy;*/
+    vertical-align: middle;
+    font-size: 0.7rem;
+    color: #333;
+}
+.look-more{
+    font-size: 0.6rem;
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    display: block;
+    background-color: #fff;
+    color: #888;
+}
+/*头部*/
+.header{
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+}
+.header .header-tag{
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    position: absolute;
+    top: 1.5rem;
+    font-size: 0.7rem;
+    color: #fff;
+}
+.header .city{
+    float: left;
+}
+.header i{
+    vertical-align: middle;
+}
+.header .city-name{
+    display: inline-block;
+    max-width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.header .weather{
+    float: right;
+    /*position: relative;*/
+    /*overflow: hidden;*/
+    /*width: 135px;*/
+    height: 22px;
+    /*right: -0.2rem;*/
+}
+
+/*.header .weather iframe{*/
+    /*top: -1px;*/
+    /*position: absolute;*/
+    /*left: -45px;*/
+/*}*/
+.weather .wind,.weather strong{
+    display: none;
+}
+.header .change-city{
+    background-color: rgba(0,0,0,0.5);
+    font-size: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    margin-left: 0.4rem;
+    border: none;
+    color: #fff;
+    width: 2rem;
+}
+.header .change-city::placeholder{
+    color: #fff;
+}
+.header .header-img{
+    width: 100%;
+    height: 8.7rem;
+}
+/*中*/
+.header .middle{
+    margin-top: 1.8rem;
+    height: 2.9rem;
+}
+.header .city-spread{
+    float: left;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+}
+.header .time{
+    padding-top: 0.3rem;
+    font-size: 0.6rem;
+    color: #aaa;
+}
+.header .time i{
+    /*vertical-align: middle;*/
+    margin-right: 0.3rem;
+}
+.header .more{
+    float: right;
+    height: 2.9rem;
+    line-height: 2.9rem;
+
+}
+.header .more i{
+    color: #aaa;
+    font-size: 1rem;
+    vertical-align: middle
+}
+/*下*/
+.header .header-video{
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    top:3.75rem;
+}
+
+.header .header-video video{
+    height:6.75rem;
+    background-color: #000;
+}
+.play-box{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.play-btn{
+    display: inline-block;
+    background-color: rgba(0,0,0,0.3);
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    border-radius: 1rem;
+    /*display: none;*/
+}
+.play-btn i{
+    vertical-align: middle;
+    color: #fff;
+}
+.video-box video{
+    border-radius: 0.2rem;
+    object-fit:fill;
+    width: 100%;
+    background-color: #000;
+}
+.video-box.play .play-btn{
+    display: none;
+}
+/*直播推荐*/
+.live-recommend{
+    background-color: #fff;
+}
+/*轮播图*/
+.Cooldog_container {
+    /*width: 750px;*/
+    width: 100%;
+    height: 6rem;
+    /*margin: 200px auto 0;*/
+    position: relative;
+    overflow: hidden;
+}
+.Cooldog_container .Cooldog_content {
+    position: absolute;
+    width: 80%;
+    /*width: 498px;*/
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /*margin-left: -249px;*/
+}
+.Cooldog_container .Cooldog_content ul{
+    white-space: nowrap;
+    height: 100%;
+    /*transform: translateX(-100%);*/
+}
+.Cooldog_container .Cooldog_content li {
+    position: relative;
+    display: inline-block;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    width: 100%;
+    height: 100%;
+    /*transition: all 0.3s ease;*/
+    transform-origin: 0 50%;
+    opacity: 0.8;
+    transform: translate3d(-100%, 0, 0) scale(0.8);
+    z-index: 0;
+    /*overflow: hidden;*/
+}
+
+.Cooldog_container .Cooldog_content li img,
+.Cooldog_container .Cooldog_content li .video-box,
+.Cooldog_container .Cooldog_content li video{
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+    vertical-align: middle;
+    display: inline-block;
+}
+.Cooldog_container .Cooldog_content li .extra {
+    position: absolute;
+    bottom: 0.5rem;
+    color: #fff;
+}
+.Cooldog_container .Cooldog_content li .duration{
+    background-color: rgba(0,0,0,0.5);
+    padding: 0.15rem 0.3rem;
+    margin-left: 1rem;
+    border-radius: 0.1rem;
+}
+.Cooldog_container .Cooldog_content ul li:nth-child(1){
+    transform: translate3d(-12.5%, 0, 0) scale(0.8);
+}
+
+.Cooldog_container .Cooldog_content ul li:nth-child(2){
+    transform: translate3d(-100%, 0, 0) scale(1);
+}
+.Cooldog_container .Cooldog_content ul li:nth-child(3) {
+    transform: translate3d(-168.5%, 0, 0) scale(0.8);
+}
+
+.Cooldog_container .Cooldog_content ul li.active{
+    opacity: 1;
+    z-index: 4;
+}
+
+/*精品游记*/
+.fine-travel{
+    background-color: #fff;
+}
+.fine-travel .item-name{
+    font-size: 0.7rem;
+    padding-left: 0.5rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+.fine-travel ul{
+    padding: 0 0.5rem;
+}
+.fine-travel li{
+    border-bottom: 1px solid #eee;
+}
+.fine-travel li img{
+    width: 100%;
+    height: 6rem;
+    border-radius: 0.3rem;
+}
+.fine-travel .bottom{
+    font-size: 0.6rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    color: #aaa;
+}
+.fine-travel .bottom i{
+    vertical-align: middle;
+    margin-right: 0.2rem;
+    font-size: 0.8rem;
+}
+/*推荐景区*/
+.scene-recomend{
+    background-color: #fff;
+}
+.scene-recomend ul{
+    overflow: hidden;
+    padding-left: 0.5rem;
+}
+.scene-recomend ul li{
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+    padding-right: 0.5rem;
+}
+.scene-recomend ul li img{
+    width: 100%;
+    height: 4.9rem;
+    border-radius: 0.2rem;
+}
+.scene-recomend .into{
+    overflow: hidden;
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+.scene-recomend .into .left{
+    float: left;
+    font-size: 0.7rem;
+}
+.scene-recomend .into .right{
+    float: right;
+    font-size: 0.6rem;
+    color: #aaa;
+}
+.scene-recomend .into .right i{
+    vertical-align: middle;
+    font-size: 0.8rem;
+    margin-right: 0.2rem;
+}

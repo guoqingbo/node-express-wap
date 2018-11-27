@@ -1,0 +1,308 @@
+extends ../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/lib/swiper/swiper-3.4.1.min.css")
+    link(rel="stylesheet", href="/stylesheets/navigation.css")
+    link(rel="stylesheet", href="/stylesheets/main/index.css")
+block javascripts
+    script(type='text/javascript', src='/lib/swiper/swiper-3.4.1.jquery.min.js')
+    script(type='text/javascript', src='http://api.map.baidu.com/api?ak=DE62ca2a357ccffe40770cf87cb63195&v=2.0')
+    script(type='text/javascript', src='/javascripts/navigation.js')
+    script(type='text/javascript', src='/javascripts/main/index.js')
+block content
+    include ../common/footer/footer
+    //-顶部搜索
+    .search
+        .search-box-con
+            .search-option
+                .selected-show
+                    span.seleted-name 门票
+                    i.icon.iconfont.icon-arrow
+                    span.vertical-line |
+                ul.select-ul
+                    li 门票
+                    li 酒店
+                    li 餐饮
+                    li 商品
+                    li 自由行
+                    li 跟团游
+                    li 交通
+                    //li 乡村游
+            .search-box
+                input.search-btn(type='text',placeholder='长白山门票')
+                span.search-go#searchBtn
+                    i.icon.iconfont.icon-sousuo2
+            //a.search-navigation(href="/cityIntro/cityNavigation")
+            //    i.icon.iconfont.icon-3
+
+    //- 头部轮播
+    .hs-banner
+        .bg-banner
+            .swiper-container#swiperHeader
+                .swiper-wrapper
+                    each item in data[0].data.headerSwiper
+                        .swiper-slide
+                            a(href="javascript:;")
+                                img(src=item.img)
+                .swiper-pagination
+    //-头条资讯
+    .top-announcement
+        img.icon-announcement(src='images/index/toutiaozixun.png', alt='...')
+        #js-top-announcement.swiper-container
+            .swiper-wrapper
+                each item in data[0].data['news']
+                    .swiper-slide
+                        a(href="javascript:;") #{item.content}
+    //.line
+    //-菜单导航上
+    .hs-nav
+        ul.clearfix.tab-nav.js-tab-nav
+            li
+                a(href='/xcy')
+                    img(src='images/index/nav-1.png', alt='...')
+                    p 乡村游
+            li
+                a(href='/list/ticket')
+                    img(src='images/index/nav-2.png', alt='...')
+                    p 门票
+            li
+                a(href='/list/hotel')
+                    img(src='images/index/nav-3.png', alt='...')
+                    p 酒店
+            li
+                a(href='/list/repast')
+                    img(src='images/index/nav-4.png', alt='...')
+                    p 美食
+            li
+                a(href='/list/shop')
+                    img(src="/images/index/nav-5.png", alt="")
+                    p 商品
+            li
+                a(href='list/combo')
+                    img(src='images/index/nav-6.png', alt='...')
+                    p 自由行
+            li
+                a(href='list/route')
+                    img(src='images/index/nav-7.png', alt='...')
+                    p 线路
+            li
+                a(href='list/car')
+                    img(src='images/index/nav-8.png', alt='...')
+                    p 交通
+            li
+                a(href='list/guide')
+                    img(src='images/index/nav6.png', alt='...')
+                    p 导游
+            li
+                a(href='/activity/discountActivity')
+                    img(src='images/index/nav-10.png', alt='...')
+                    p 优惠活动
+            li
+                //a(href='/travelAgency/travelAgencyList')
+                a(href='/list/travelAgency')
+                    img(src='images/index/nav-11.png', alt='...')
+                    p 旅行社
+            li
+                a(href='customized')
+                    img(src='images/index/nav-12.png', alt='...')
+                    p 私人定制
+            li
+                //a(href='list/strategy')
+                a(href='information/informationList')
+                    img(src='images/index/nav-13.png', alt='...')
+                    p 资讯公告
+            li
+                a(href='/list/strategy')
+                    img(src='images/index/nav-14.png', alt='...')
+                    p 游记攻略
+            li
+                a(href='/complaint/complaintList')
+                    img(src='images/index/nav-15.png', alt='...')
+                    p 投诉建议
+        .taboc
+            //img(src="images/index/close.png")
+            .zhankai
+                |展开
+                i.icon.iconfont.icon-arrow
+            .shouqi
+                | 收起
+                i.icon.iconfont.icon-chevrondown-copy
+    .line
+    //- 城市介绍
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/csjs.png')
+    .cityInfo
+        a(href="/xcy")
+            if data[0].data.cityIntro
+                -var cityInfor = data[0].data.cityIntro[0]
+                .cityinfoImg
+                    img( src=cityInfor.img)
+                .city-introContent
+                    p.title=cityInfor.name
+                    p.introContent-content=cityInfor.cityIntro
+                .city-comeHere
+                    a(href="/detail/location?location=" + cityInfor.longitude + "," + cityInfor.latitude + "&&address=" + cityInfor.address)
+                        img(src="images/index/comehere.png")
+                        p 到这里去
+    .line
+    //- 城市地图
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/csdt.png')
+            a.look-more(href="/navigation")
+                i.icon.iconfont.icon-gengduo1
+    //.dituwrap
+    //    a(href="/navigation")
+    //        .mapcontent
+
+    //- 城市地图
+    .city-map
+        //选项卡
+        .map-tab-box
+            .map-tab
+                each item in [1,2,3,4,5]
+                    .map-tab-content
+                        ul.map-content-list
+                            li.map-content-item
+                                .map-tab-img-box
+                                    img.map-tab-img(src="/images/demo/foods-list1.jpg",alt="图片")
+                                .map-tab-info
+                                    p.map-tab-title
+                                        span.map-title-name 长白山景区
+                                        span.map-tab-scroe  5.0分
+                                    p.map-tab-telphone 电话：0571-123485520125
+                                    p.map-tab-price
+                                        span.map-tab-icon-price ￥
+                                        | 88.8
+                                    //p.map-tab-addr 地址：是的敢惹他dry和人体
+                                a.map-tab-go(href="/detail/location",data-location="",data-addr="")
+                                    p.go-icon-box
+                                        i.icon.iconfont.icon-quzheli
+                                    span 到这里去
+                            li.map-content-item
+                                .map-tab-img-box
+                                    img.map-tab-img(src="/images/demo/foods-list1.jpg",alt="图片")
+                                .map-tab-info
+                                    p.map-tab-title
+                                        span.map-title-name 长白山景区
+                                        span.map-tab-scroe  5.0分
+                                    p.map-tab-telphone 电话：0571-123485520125
+                                    p.map-tab-price
+                                        span.map-tab-icon-price ￥
+                                        | 88.8
+                                    //p.map-tab-addr 地址：是的敢惹他dry和人体
+                                a.map-tab-go(href="/detail/location",data-location="",data-addr="")
+                                    p.go-icon-box
+                                        i.icon.iconfont.icon-quzheli
+                                    span 到这里去
+            .map-tab-nav
+                ul.map-tab-list
+                    li.map-tab-item.active 全部
+                    li.map-tab-item 景区
+                    li.map-tab-item 酒店
+                    li.map-tab-item 厕所
+                    li.map-tab-item 停车场
+        //-地图
+        .map#allmap(data-module="index")
+    .line
+    // - 目的地
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/jxmdd.png')
+            a.look-more(href="/distination")
+                i.icon.iconfont.icon-gengduo1
+        .hs-nav
+            ul.clearfix
+                if data[0].data.destination
+                    each item in data[0].data.destination
+                        li.mdd
+                            a(href=item.detailUrl?item.detailUrl:"javascript:;")
+                                img(src=item.img, alt='图片')
+                                p= item.name
+
+    .line
+    //-热门视频
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/rmsp.png')
+            a.look-more(href="/more/hotVideo")
+                i.icon.iconfont.icon-gengduo1
+    .city_video
+        .Cooldog_container
+            .Cooldog_content
+                ul
+                    if data[0].data.hotVideo
+                        -var video1 = data[0].data.hotVideo[0]
+                            li
+                                .video-box
+                                    video(src=video1.video,controls=false)
+                                    .play-box
+                                        span.play-btn
+                                            i.icon.iconfont.icon-bofang1
+                                p.extra
+                                    span.duration
+                        each item,index in data[0].data.hotVideo
+                            li(class=(index == 0 ? "active" : ""))
+                                .video-box
+                                    video(src=item.video,controls=false)
+                                    .play-box
+                                        span.play-btn
+                                            i.icon.iconfont.icon-bofang1
+                                p.extra
+                                    span.duration
+                        -var videoLast = data[0].data.hotVideo[data[0].data.hotVideo.length-1]
+                        li
+                            .video-box
+                                video(src=videoLast.video,controls=false)
+                                .play-box
+                                    span.play-btn
+                                        i.icon.iconfont.icon-bofang1
+                            p.extra
+                                span.duration
+    .line
+    //-热门活动
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/rmhd.png')
+            a.look-more(href="/activity/discountActivity")
+                i.icon.iconfont.icon-gengduo1
+    .city_rmhd
+        if data[0].data.hotActivity
+            -var hotActivity = data[0].data.hotActivity
+            .rmhdtop
+                a(href=hotActivity[0].url)
+                    img( src =hotActivity[0].img)
+            .rmhdbottom
+                .rmhdbottom-left
+                    img(src=hotActivity[1].img)
+                    p=hotActivity[1].name
+                    a(href=href = hotActivity[1].url) 去看看
+                .rmhdbottom-right
+                    img(src=hotActivity[2].img)
+                    p 活动标题
+                    a(href=href = hotActivity[2].url) 去看看
+    .line
+    //-精品游记
+    .city-intro
+        h4.section-tittle
+            img(src='images/index/jpyj.png')
+            a.look-more(href="/more/goodTravel")
+                i.icon.iconfont.icon-gengduo1
+    .youji_cont
+        if data[0].data.goodTravel
+            each item in data[0].data.goodTravel
+                a(href="/more/goodTravel/"+item.baseCode)
+                    p.youji_title= item.name
+                    img(src =item.img)
+                    p.pv
+                        img( src ='images/index/aixin.png')
+                        span= item.careNum
+    .line
+    +footer
+
+
+
+
+
+

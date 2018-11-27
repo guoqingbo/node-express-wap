@@ -1,0 +1,78 @@
+extends ../../layout
+
+block stylesheets
+    link(rel="stylesheet", href="/stylesheets/order.css")
+block javascripts
+    script(type='text/javascript', src='/lib/validate/jquery.validate.min.js')
+    script(type='text/javascript', src='/lib/validate/messages_zh.min.js')
+    script(type='text/javascript', src='/lib/validate/additional-methods.js')
+    script(type='text/javascript', src='/javascripts/pageItem.js')
+    script(type='text/javascript', src='/javascripts/member/refund.js')
+    script.
+        var module = '#{data[0].data.orderType}';
+        orderNo = '#{data[0].data.orderNo}'
+block content
+    form#form(action= '/member/refund/#{module}', method= 'post')
+        - var datas = data[0].data;
+        input(type="hidden" name='orderNo' value=datas.orderNo)
+        input(type="hidden" name='isRealName' value=Boolean(datas.linkManDTOList).toString())
+        ul.order-list.myorder-list.refund-list
+            //-li
+              label.lab-title(for='') 退款原因
+              .order-item
+                input.order-text(type='text', name='reason', value='', placeholder='请说明您需要退款的原因')
+            li
+                label.lab-title(for='') 退款商品
+                .order-item= datas.productName || datas.orderInfo
+            li
+                label.lab-title(for='') 退款金额
+                .order-item
+                    span.price
+                        em ￥
+                        span#refundPrice(data-price=datas.price)= datas.price
+                    span.refund-price
+                        | 最多可退
+                        em ￥
+                        = datas.mostRefundSum
+            //-li
+              label.lab-title(for='') 退款方式
+              .order-item
+                input.order-text(type='tel', name='idCard', value='', placeholder='请输入您的支付宝或者银行卡帐号，方便我们\
+                为您即时退款')
+        //- .page-line
+        ul.order-list.myorder-list
+            each item in datas.orderDetails
+                input(type="hidden" name='orderDetailId' value=item.id)
+                li
+                    label.lab-title(for="") 退订票型
+                    .order-item
+                        span(style='width:60%')= item.orderInfo
+                    span
+                        input.refundNum(name='refundAmount', type="tel", value= item.leftAmount < 1 ? '0' : '1', data-max=item.leftAmount, data-min= item.leftAmount < 1 ? '0' : '1',data-module=module)
+            li
+                label.lab-title(for='') 备注
+                .order-item
+                    textarea.order-txtarea(placeholder='请输入退款原因', name='reason')
+            if datas.orderType === 'ticket' && datas.linkManDTOList
+                each item in datas.linkManDTOList
+                    if item.telephone
+                        li
+                            label.lab-title(for='') 联系人
+                            .order-item=item.linkMan
+                        li
+                            label.lab-title(for='') 手机号
+                            .order-item=item.telephone
+                    else
+                        li
+                            label.lab-title(for='') 姓&ensp;&ensp;名
+                            .order-item=item.linkMan
+                    li
+                        label.lab-title(for='') 身份证
+                        .order-item=item.idNo
+                        input(name='idNo', type='hidden', value=item.idNo)
+        .btn-handle
+            a.btn(href='javascript:;') 提交申请
+    .mask#mask
+    .tips
+        p
+        a(href="javascript:;").queding 确定
